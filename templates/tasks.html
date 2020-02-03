@@ -3,6 +3,10 @@
 
     </head>
     <body>
+    {% for t in tasks %}
+    {{ t }}
+    {% endfor %}
+    
         {% for task in tasks %}
             {{task.task_name}}
             {{task.category_name}}
