@@ -2,22 +2,41 @@
 <html>
 
 <head>
+    <!----link for materialize icons, materialise css, font awesome, own css stylesheet-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css">
 </head>
 
 <body>
-    <h1> Tasks of the Day!</h1>
+<nav>
+    <div class="nav-wrapper" style ="background-color:#e1e1d0">
+      <a href="#" class="brand-logo">Busy Capel</a>
+      <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="recipes.html">Recipes</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
+      </ul>
+    </div>
+</nav>
+    <ul class="sidenav" id="mobile-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="recipes.html">Recipes</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
+    </ul>
+
     {% block content %} 
     {% endblock %}
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.collapsible').collapsible();
-        })
+    <!--jquery.min.js and materialize.min.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
     </script>
 </body>
 
