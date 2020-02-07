@@ -1,3 +1,10 @@
-.nav-wrapper{
-    background-color:red;
+html {
+    height: 100%;
+}
+
+.navbar {
+    background-color: #408000;
+}
+.navbar li {
+    font-weight: bold;
 }
