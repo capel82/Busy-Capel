@@ -1,10 +1,39 @@
 html {
     height: 100%;
 }
-
+/*--NAVBAR--*/
 .navbar {
     background-color: #408000;
 }
 .navbar li {
     font-weight: bold;
+}
+
+/*--JUMBOTRON--*/
+.jumbotron {
+    background-image:url("../images/smashed-chicken.jpg");
+    background-position:center;
+    background-attachment: fixed;
+    -webkit-background-size:cover;
+    -moz-background-size: cover;
+    min-height: 80vh;
+    margin-top: 50px;
+}
+.overlay {
+    height:80%;
+    width:70%;
+    background-color: rgb(0,0,0, 0.6);
+    align-items:center;
+    vertical-align: central;
+    margin-top: 30px;
+}
+.recipe_shoutout{
+    color:#fff;
+    font-weight: 500;
+    
+}
+.jumbotron p {
+    color:#fff;
+    font-weight: 300;
+    
 }
