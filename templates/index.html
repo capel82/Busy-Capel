@@ -1,43 +1,39 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
+{% block nav %} {% include 'nav.html' %} {% endblock %}
 
-<!--NAVBAR-->
-  <header>
-    <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
-      <a class="navbar-brand" href="#">Busy Capel</a>
-      <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon">
-            </span>
-            </button>
-
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href=".html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Recipes</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Register</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-
-  <!--SHOUTOUT JUMBOTRON-->
-  <section id="shoutout">
-    <div class="jumbotron jumbotron-fluid">
-      <div class="overlay mx-auto p-5">
-        <div class="container">
-          <h2 class="display-5  my-2 recipe_shoutout">High Protein Recipes</h2>
-          <p class="lead mx-auto">Fill your day up with high protein food</p>
-          <p><a id="browse" class="btn btn-success mx-auto" href="#" role="button"> Browse Recipes</a></p>
+<section class="container-fluid p-0">
+    <div class="jumbotron"> 
+        <div class="overlay mx-auto p-5">
+            <h1 id="recipe_shoutout" class="display-4">High Protein Recipes</h1>
+            <hr class="my-4">
+            <h2>Fill your day with high protein food!</h2>
+            <p>High protein diet helps to boost body metabolism and increase fat burning.  It also reduces appetite and hunger levels as well as increase musle mass and strength.</p> 
+            <p>You can easily increase your protein intakes with simple recipes here. </p>
+                <a class="btn btn-light" role="button" href="{{url_for('get_recipes')}}">Browse Recipes</a>
         </div>
-      </div>
+    </div>
+</section>
+
+<section class="container">
+    <h2 id="inspired" class="text-center pt-3 pb-1 font-italic"> Be Inspired...</h2>
+    <p class="text-center text-muted pb-4">Quick and Easy</p>
+    <div class="row">
+        {% for recipe in recipes %}
+        <div class="col-sm-12 col-md-3">
+            <div class="card text-center">
+                    <img class="card-img-top" src="{{recipe.image}}" alt="Card image cap"></img>
+                <div class="card-body">
+                    <a class ="card-title text-success" href="{{url_for('get_recipes', recipe_id=recipe._id)}}">{{recipe.recipe_name}}</a>
+                </div>
+            </div>       
+        </div>
+         {% endfor %}  
+    </div> 
+    <div class="row">
+    <div class="col-sm-12 text-center p-5">
+    <a class="btn btn-outline-dark" role="button" href="{{url_for('get_recipes')}}"> More Recipes here</a>
+    </div>
+    </div>
+</section>
+
 {% endblock %}
