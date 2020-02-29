@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block content %}
+
+<section class="container">
+    <h2 id="inspired" class="text-center pt-3 pb-1 font-italic"> All Recipes.</h2>
+    <p class="text-center text-muted pb-4">High Protein, simple and easy. Give them a try.</p>
+    <div class="row">
+        {% for recipe in recipes %}
+        <div class="col-sm-12 col-md-3">
+            <div class="card text-center">
+                    <img class="card-img-top" src="{{recipe.image}}" alt="Card image cap"></img>
+                <div class="card-body">
+                    <a class ="card-title text-success" href="{{url_for('get_recipes', recipe_id=recipe._id)}}">{{recipe.recipe_name}}</a>
+                </div>
+            </div>       
+        </div>
+         {% endfor %}  
+    </div> 
+    <div class="row">
+    <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
+    </div>
+    </section>
+{% endblock %}

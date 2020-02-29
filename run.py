@@ -13,9 +13,15 @@ app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
 mongo = PyMongo(app)
 
 @app.route('/')
+
 @app.route('/homepage')
 def homepage():
     return render_template("index.html", recipes=mongo.db.recipes.find().limit(4))
+# ----- READ ALL RECIPES ----- #
+@app.route('/allrecipes')
+def allrecipes():
+    return render_template("allrecipes.html", recipes=mongo.db.recipes.find().limit(8))
+    
 @app.route('/get_recipes')
 def get_recipes():
     return render_template("recipes.html", recipes=mongo.db.recipes.find().limit(3))

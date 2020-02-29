@@ -1,5 +1,4 @@
 {% extends 'base.html' %} {% block content %}
-{% block nav %} {% include 'nav.html' %} {% endblock %}
 
 <section class="container-fluid p-0">
     <div class="jumbotron"> 
@@ -9,7 +8,7 @@
             <h2>Fill your day with high protein food!</h2>
             <p>High protein diet helps to boost body metabolism and increase fat burning.  It also reduces appetite and hunger levels as well as increase musle mass and strength.</p> 
             <p>You can easily increase your protein intakes with simple recipes here. </p>
-                <a class="btn btn-light" role="button" href="{{url_for('get_recipes')}}">Browse Recipes</a>
+                <a class="btn btn-light" role="button" href="{{url_for('allrecipes')}}">Browse Recipes</a>
         </div>
     </div>
 </section>
@@ -35,5 +34,5 @@
     </div>
     </div>
 </section>
-{% block footer %} {% include 'footer.html' %} {% endblock %}
+
 {% endblock %}
