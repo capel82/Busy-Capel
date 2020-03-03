@@ -1,25 +1,12 @@
 {% extends 'base.html' %} {% block content %}
- <div id="join"class="container bg-light">
+ <div id="join"class="container justify-content-center">
     <div class="row">
-        <div class="col-sm-6 col-md-8 col-lg-12">
+        <div class="col-sm-6 col-md-8 col-lg-12 d-flex justify-content-center">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Join Today</legend>
-                <div class="form-group">
-                    {{ form.username.label(class="form-control-label") }}
-
-                    {% if form.username.errors %}
-                        {{ form.username(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.username.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.username(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
+                <legend class="border-bottom mb-3">CREATE NEW ACCOUNT</legend>
+                <p class="text-muted text-center font-italic">to save your own recipes</p>
                 <div class="form-group">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %}
@@ -62,14 +49,15 @@
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-success") }}
-            </div>
-        </form>
-    </div>
-    <div class="border-top pt-3">
+                <div class="border-top mt-3 pt-2">
         <p class="text-muted">
             Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
         </p>
     </div>
+            </div>
+        </form>
+    </div>
+    
     </div>
 </div>
 {% endblock content %}
