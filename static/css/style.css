@@ -62,6 +62,20 @@ h2 {
     color: #4f4f4f;
     font-family: 'Caladea', sans-serif;
 }
+/*--register.html --*/
+#join {
+    padding:30px;
+    
+}
+legend{
+    color:#408000;
+    font-weight: 300;
+    font-size: 40px;
+}
+.form-control {
+    width:50%;
+    justify-content: center;
+}
 /*--recipes.html--*/
 #individual_recipe {
     background-color: #f2f2f2;
@@ -71,9 +85,11 @@ h2 {
     color:#408000;
     padding: 10px;
 }
-.recipe_images {
-    width:70%;
-}
+
+.img-fluid {
+    max-width: 100%; 
+    height: auto;}
+
 .methods {
 background-color: rgb(0,0,0, 0.2);
 }

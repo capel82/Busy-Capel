@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Caladea|Lora&display=swap:100,200,300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
+    {% if title %}
+        <title>High Protein Recipes - {{ title }}</title>
+    {% else %}
+        <title>High Protein Recipes</title>
+    {% endif %}
 </head>
 
 <body>
