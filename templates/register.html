@@ -1,4 +1,17 @@
 {% extends 'base.html' %} {% block content %}
+<div class="container mt-5">
+<div class="row d-flex justify-content-center">
+{% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} p-3 mb-2 bg-warning text-dark">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+    </div>
+</div>
  <div id="join"class="container justify-content-center">
     <div class="row">
         <div class="col-sm-6 col-md-8 col-lg-12 d-flex justify-content-center">
@@ -6,7 +19,7 @@
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-3">CREATE NEW ACCOUNT</legend>
-                <p class="text-muted text-center font-italic">to save your own recipes</p>
+                <p class="text-muted text-center font-italic h5 mb-3">to save your own recipes</p>
                 <div class="form-group">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %}

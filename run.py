@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId 
 #---- forms extension-flask WTF----#
@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
-from forms import RegistrationForm
+from forms import RegistrationForm, LoginForm
 #---- secret keys for MongoDB Atlas----#
 import env
 
@@ -38,8 +38,8 @@ def get_recipes():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account created for {form.username.data}!', 'success')
-        return redirect(url_for('homepage'))
+        flash(f'Account created successfully for {form.email.data}!', 'success')
+        return redirect(url_for('register'))
     return render_template('register.html', title='register', form=form)
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -48,7 +48,7 @@ def login():
     if form.validate_on_submit():
         if form.email.data == 'admin@blog.com' and form.password.data == 'password':
             flash('You have been logged in!', 'success')
-            return redirect(url_for('home'))
+            return redirect(url_for('homepage'))
         else:
             flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='login', form=form)
