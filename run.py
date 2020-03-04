@@ -48,9 +48,9 @@ def login():
     if form.validate_on_submit():
         if form.email.data == 'admin@blog.com' and form.password.data == 'password':
             flash('You have been logged in!', 'success')
-            return redirect(url_for('homepage'))
+            return redirect(url_for('allrecipes'))
         else:
-            flash('Login Unsuccessful. Please check username and password', 'danger')
+            flash('Login Unsuccessful. Please check email address and password', 'danger')
     return render_template('login.html', title='login', form=form)
 
 if __name__ == '__main__':

@@ -79,6 +79,17 @@ legend{
 .form-control {
     justify-content: center;
 }
+
+/*--login.html--*/
+#signin {
+    padding:50px;
+    margin-top: 50px;
+    margin-bottom:50px;
+    height: 100vh;
+    background-color: #f7ffe6;
+    color: #000;
+    border: 2px solid #408000;
+}
 /*--recipes.html--*/
 #individual_recipe {
     background-color: #f2f2f2;

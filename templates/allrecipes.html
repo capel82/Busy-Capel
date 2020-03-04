@@ -1,5 +1,17 @@
 {% extends 'base.html' %} {% block content %}
-
+<section class="container my-5">
+<div class="row d-flex justify-content-center">
+{% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} p-3 mb-2">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+    </div>
+</section>
 <section class="container">
     <h2 id="inspired" class="text-center pt-3 pb-1 font-italic"> All Recipes.</h2>
     <p class="text-center text-muted pb-4">High Protein, simple and easy. Give them a try.</p>
