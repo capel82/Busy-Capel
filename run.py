@@ -1,5 +1,5 @@
 import os
-
+import math
 from flask import Flask, render_template, redirect, request, url_for, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId 
@@ -12,7 +12,6 @@ from forms import RegistrationForm, LoginForm
 #---- secret keys for MongoDB Atlas----#
 import env
 
-
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = 'Cluster0'
 app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
@@ -20,20 +19,37 @@ app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY')
 mongo = PyMongo(app)
 
 @app.route('/')
-
 @app.route('/homepage')
 def homepage():
     return render_template("index.html", title='Homepage', recipes=mongo.db.recipes.find().limit(4))
 
 # ----- READ ALL RECIPES ----- #
-@app.route('/allrecipes')
-def allrecipes():
-    return render_template("allrecipes.html", recipes=mongo.db.recipes.find().limit(8))
-    
 @app.route('/get_recipes')
 def get_recipes():
     return render_template("recipes.html", recipes=mongo.db.recipes.find().limit(3))
 
+@app.route('/allecipes/', methods=['GET', 'POST'])
+@app.route('/allrecipes/<page>/<limit>', methods=['GET', 'POST'])
+def allrecipes(page=1, limit=8):
+
+    limit = int(limit)
+
+    if request.method == 'POST':
+        limit = int(request.form['limit'])
+    
+    page = int(page)
+    skip = page * limit - limit
+    maximum = math.ceil( (mongo.db.recipes.count_documents({})) / limit)
+
+    recipes = list(mongo.db.recipes.find().skip(skip).limit( limit ))
+    return render_template(
+        'allrecipes.html',
+        title='Recipes',
+        recipes=recipes,
+        page=page,
+        pages=range(1, maximum + 1),
+        maximum=maximum, limit=limit
+    )
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -52,6 +68,8 @@ def login():
         else:
             flash('Login Unsuccessful. Please check email address and password', 'danger')
     return render_template('login.html', title='login', form=form)
+
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
