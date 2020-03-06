@@ -23,12 +23,10 @@ mongo = PyMongo(app)
 def homepage():
     return render_template("index.html", title='Homepage', recipes=mongo.db.recipes.find().limit(4))
 
-# ----- READ ALL RECIPES ----- #
-@app.route('/get_recipes')
-def get_recipes():
-    return render_template("recipes.html", recipes=mongo.db.recipes.find().limit(3))
 
-@app.route('/allecipes/', methods=['GET', 'POST'])
+# ----- READ ALL RECIPES ----- #
+
+@app.route('/allrecipes/', methods=['GET', 'POST'])
 @app.route('/allrecipes/<page>/<limit>', methods=['GET', 'POST'])
 def allrecipes(page=1, limit=8):
 
@@ -50,6 +48,14 @@ def allrecipes(page=1, limit=8):
         pages=range(1, maximum + 1),
         maximum=maximum, limit=limit
     )
+
+@app.route('/show_recipe/<recipe_id>', methods=['GET', 'POST'])
+def show_recipe(recipe_id):
+ 
+    the_recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    return render_template(
+        'recipe.html', recipe=the_recipe)
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()

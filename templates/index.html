@@ -22,7 +22,7 @@
             <div class="card text-center">
                     <img class="card-img-top" src="{{recipe.image}}" alt="Card image cap"></img>
                 <div class="card-body">
-                    <a class ="card-title text-success" href="{{url_for('get_recipes', recipe_id=recipe._id)}}">{{recipe.recipe_name}}</a>
+                    <a class ="card-title text-success" href="{{url_for('show_recipe', recipe_id=recipe._id)}}">{{recipe.recipe_name}}</a>
                 </div>
             </div>       
         </div>
@@ -30,7 +30,7 @@
     </div> 
     <div class="row">
     <div class="col-sm-12 text-center p-5">
-    <a class="btn btn-outline-dark" role="button" href="{{url_for('get_recipes')}}"> More Recipes here</a>
+    <a class="btn btn-outline-dark" role="button" href="{{url_for('allrecipes')}}"> More Recipes here</a>
     </div>
     </div>
 </section>
