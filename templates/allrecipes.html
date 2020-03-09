@@ -30,10 +30,10 @@
     </div> 
  </section>
 
- <section class="container">
- <div class="row d-flex justify-content-center">
+ <section id = "recipe_pagination" class="container">
+ <div class="row d-flex justify-content-center my-2">
 <nav aria-label="Page navigation example">
-  <ul class="pagination">
+  <ul class="pagination p-3">
     <li {% if page==1 %} class="page-item disabled"{% endif %}>
       <a class="page-link" {% if page>1 %} href="{{ url_for('allrecipes', page=page-1, limit=limit) }}" {% endif %} aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
@@ -41,8 +41,8 @@
       </a>
     </li>
     {% for page in pages %}
-    <li class="page-item text-success">
-    <a class="page-link active" href="{{ url_for('allrecipes', page=page, limit=limit) }}">{{ page }}</a>
+    <li class="page-item">
+    <a class="page-link  text-success active" href="{{ url_for('allrecipes', page=page, limit=limit) }}">{{ page }}</a>
     </li>
     {% endfor %}
     

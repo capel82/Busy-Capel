@@ -51,12 +51,12 @@
                     {{ form.remember.label(class="form-check-label") }}
                 </div>
             </fieldset>
-            <div class="form-group">
+            <div class="form-group text-right">
                 {{ form.submit(class="btn btn-outline-success") }}
                 <div class="border-top mt-3 pt-2">
-        <p class="text-muted">
+        <small class="text-muted">
             Need An Account? <a class="ml-2" href="{{ url_for('register') }}">Register</a>
-        </p>
+        </small>
     </div>
             </div>
         </form>

@@ -12,16 +12,16 @@
           {% endwith %}
     </div>
 </div>
-<div id="individual_recipe" class="container-fluid"> 
+<div id="individual_recipe" class="container"> 
     <div class="row d-flex justify-content-center">
         <h1 class="recipe_title">{{recipe.recipe_name}}</h1>
     </div>
 
-    <div class="row d-flex align-items-center">
+    <div class="row my-5 ml-2 d-flex justify-content-center">
         <div class="col-md-6">
             <img class= "recipe_image" src="{{recipe.image}}" alt= "smashed-chicken.jpg" class = "img-fluid p-3">
         </div>
-        <div class ="col-md-3 col-sm-12 text-center p-2 my-3">
+        <div class ="col-md-3 col-sm-12 text-center align-items-center p-2 my-3">
                 <i class= "fa fa-cutlery fa-2x"></i>
             <p>Category: {{recipe.categories}}</p>
                 <i class= "fa fa-spoon fa-2x"></i>
@@ -34,7 +34,7 @@
             <p>Cooking time: {{recipe.cooking_time}}</p>
         </div>
     </div>
-    <div class="ingredients_methods" class= "row">
+    <div class=" row ingredients_methods">
         <div class= "ingredients col-md-6 col-sm-12 text-center">
             <h3 class="text-center">Ingredients</h3>
             <ul class=" recipe_ingredients mx-3">
