@@ -8,6 +8,18 @@
       <li class="nav-item">
         <a class="nav-link" href="{{url_for('allrecipes')}}">Recipes <span class="sr-only">(current)</span></a>
       </li>
+      {% if 'email' in session %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('account')}}">My Account <span class="sr-only"></span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('addrecipes')}}">Add Recipes <span class="sr-only"></span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('logout')}}">Logout<span class="sr-only"></span></a>
+      </li>
+      <!-- If there's no user logged in session this links will be display -->
+        {% else %}
       <li class="nav-item">
         <a class="nav-link" href="{{url_for('login')}}">Login</a>
       </li>
@@ -15,5 +27,6 @@
         <a class="nav-link" href="{{url_for('register')}}">Register</a>
       </li>
     </ul>
+    {% endif %}
   </div>
 </nav>

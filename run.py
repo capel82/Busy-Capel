@@ -10,7 +10,7 @@ from werkzeug.security import generate_password_hash, \
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, RecipesForm
 #---- secret keys for MongoDB Atlas----#
 import env
 
@@ -71,14 +71,16 @@ def register():
             users.insert_one({
                 'email': request.form['email'].lower(),
                 'password': hash_pass,})
-            session['email'] = request.form['email']
 
+            session['email'] = request.form['email']
             session['logged_in'] = True
             flash(f'Account created successfully for {form.email.data}!', 'success')
+            return redirect(url_for('register'))
+        
+        else:
+            flash('Sorry, email has already taken. Please try another.')
         return redirect(url_for('register'))
 
-        flash('Sorry, email already taken. Please try another.')
-        return redirect(url_for('register'))
     return render_template('register.html', title='Register', form=form)
 
 #---ROUTE TO LOGIN PAGE ----#
@@ -102,8 +104,56 @@ def login():
             return redirect(url_for('login'))
     return render_template('login.html', title='login', form=form)
 
+#---ROUTE TO ACCOUNT PAGE ----#
+@app.route('/account/', methods=['GET', 'POST'])
+@app.route('/account/<page>/<limit>', methods=['GET', 'POST'])
+def account(page=1, limit=3):
+
+    limit = int(limit)
+
+    if request.method == 'POST':
+        limit = int(request.form['limit'])
+        
+    page = int(page)
+    skip = page * limit - limit
+    maximum = math.ceil((mongo.db.users_recipes.count_documents({})) / limit)
+
+    users_recipes = list(mongo.db.users_recipes.find().skip(skip).limit(limit))
+    return render_template(
+        'account.html',
+        title='My Account',
+        recipes=users_recipes,
+        page=page,
+        pages=range(1, maximum + 1),
+        maximum=maximum, limit=limit
+    )
 
 
+#---ROUTE TO LOGOUT ---#
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for('homepage'))    
+
+#---ROUTE TO ADD RECIPE PAGE ----#
+@app.route('/addrecipes/', methods=['GET', 'POST'])
+def addrecipes():
+
+        form = RecipesForm(request.form)
+
+        users_recipes = mongo.db.users_recipes
+        new_recipe = {
+            'recipe_name': request.form.get('recipe_name'),
+            'categories': request.form.get('categories'),
+            'preparation_time': request.form.get('preparation_time'),
+            'cooking_time': request.form.get('cooking_time'),
+            'ingredients':request.form.get ('ingredients'),
+            'methods': request.form.get('methods'),
+            'email': session['email']
+            }
+        users_recipes.insert_one(new_recipe)
+
+        return render_template ('addrecipes.html', recipe=new_recipe, form=form)
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

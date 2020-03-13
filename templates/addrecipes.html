@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-5">
+<div class="row d-flex justify-content-center">
+{% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} p-3 mb-2 bg-warning text-dark">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+    </div>
+</div>
+
+<section id="add_recipe" class="container mb-2">
+<h1 class='text-center'>Add your recipe here!</h1>
+<div class="row justify-content-center">
+<div class="col-md-8">
+<form method="POST" action="{{ url_for('addrecipes') }}">
+    {{ form.hidden_tag() }}
+  <div class="form-group">
+    <label for="recipe_name">Recipe Name</label>
+    {{ form.recipe_name (class="form-control recipe-form-input", id="recipe_name", autocomplete="off", placeholder="Recipe Name") }}
+  </div>
+  <div class="form-group">
+    <label for="categories">Categories</label>
+    {{ form.categories (class="form-control recipe-form-input", id="categories", autocomplete="off", placeholder="Starter, Main or Dessert") }}
+  </div>
+  <div class="form-group">
+    <label for="preparation_time">Preparation Time</label>
+    {{ form.preparation_time (class="form-control recipe-form-input", id="preperation_time", autocomplete="off", placeholder="in minutes") }}
+  </div>
+  <div class="form-group">
+    <label for="cooking_time">Cooking Time</label>
+    {{ form.cooking_time (class="form-control recipe-form-input", id="cooking_time", autocomplete="off", placeholder="in minutes") }}
+  </div>
+  <div class="form-group">
+    <label for="FormControlIngredients">Ingredients</label>
+    {{ form.ingredients (class="form-control recipe-form-input", id="ingredients", autocomplete="off", placeholder="") }}
+  </div>
+  <div class="form-group">
+    <label for="FormControlMethods">Methods</label>
+    {{ form.methods (class="form-control recipe-form-input", id="methods", autocomplete="off", placeholder="") }}
+  </div>
+</form>
+<div class="row p-3">
+<div class="col-md-12 d-flex justify-content-center">
+<div class="form-group m-auto">
+    {{ form.submit (class="btn btn-success u-margin-bottom-medium u-padding-top") }}
+</div>
+</div>
+</div>
+</section>
+{% endblock content %}

@@ -119,7 +119,16 @@ background-color:#408000;
 color: #fff;
 padding:30px;
 }
-
+/*--allrecipes.html--*/
 #recipe_pagination.page-item {
     color: #408000;
+}
+/*--addrecipe.html--*/
+#add_recipe  h1 {
+    color: #408000;
+    padding-top: 30px;
+}
+
+#add_recipe label {
+    border-color: #408000;
 }
