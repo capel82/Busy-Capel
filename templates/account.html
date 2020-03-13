@@ -1,15 +1,14 @@
 {% extends 'base.html' %} {% block content %}
-
-
 <section class="container">
-    <h2 id="inspired" class="text-center pt-3 pb-1 font-italic"> My Recipes</h2>
-    <p class="text-center text-muted pb-4">High Protein, simple and easy. Give them a try.</p>
+   <h2 id="account" class="text-center pt-3 pb-1 font-italic"> My Recipes.</h2>
+       <p class="text-center text-muted pb-4">Retrieve your saved recipes by clicking on the recipe title.</p>
     <div class="row">
         {% for recipe in recipes %}
         <div class="col-sm-12 col-md-3 my-2">
             <div class="card text-center">
-                <div class="card-body">
-                    <a class ="card-title text-success" href="#">{{recipe.recipe_name}}</a>
+                <img class="card-img-top" src="{{recipe.recipe_image}}" alt="Card image cap"></img>
+                <div class="card body">
+                    <a class ="card-title text-success" href="{{url_for('show_myrecipe', account_id=recipe._id)}}">{{recipe.recipe_name}}</a>
                 </div>
             </div>       
         </div>

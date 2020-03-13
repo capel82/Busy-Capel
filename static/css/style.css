@@ -132,3 +132,12 @@ padding:30px;
 #add_recipe label {
     border-color: #408000;
 }
+
+.my_recipetitle {
+    border-color: #408000;
+    border-width: 2px;
+    border-style: solid;
+}
+.card-header {
+    background-color: #D2FFA6;
+}

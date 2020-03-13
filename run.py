@@ -107,7 +107,7 @@ def login():
 #---ROUTE TO ACCOUNT PAGE ----#
 @app.route('/account/', methods=['GET', 'POST'])
 @app.route('/account/<page>/<limit>', methods=['GET', 'POST'])
-def account(page=1, limit=3):
+def account(page=1, limit=8):
 
     limit = int(limit)
 
@@ -128,6 +128,12 @@ def account(page=1, limit=3):
         maximum=maximum, limit=limit
     )
 
+@app.route('/show_myrecipe/<account_id>', methods=['GET', 'POST'])
+def show_myrecipe(account_id):
+ 
+    my_recipe = mongo.db.users_recipes.find_one({'_id': ObjectId(account_id)})
+    return render_template(
+        'myrecipes.html', recipe=my_recipe)
 
 #---ROUTE TO LOGOUT ---#
 @app.route("/logout")
