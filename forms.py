@@ -21,10 +21,11 @@ class LoginForm(FlaskForm):
 class RecipesForm(FlaskForm):
     recipe_name = StringField ('Recipe Name',validators=[DataRequired()])
     categories= StringField ('Categories',validators=[DataRequired()])
-    preparation_time = IntegerField ('Preparation Time',validators=[DataRequired()])
-    cooking_time = IntegerField ('Cooking Time',validators=[DataRequired()])
-    ingredients = TextAreaField ('Preparation Time',validators=[DataRequired()])
-    methods = TextAreaField ('Preparation Time',validators=[DataRequired()])
+    preparation_time = IntegerField ('Preparation Time (in minutes)',validators=[DataRequired()])
+    cooking_time = IntegerField ('Cooking Time (in minutes)',validators=[DataRequired()])
+    ingredients = TextAreaField ('Ingredients',validators=[DataRequired()])
+    methods = TextAreaField ('Methods',validators=[DataRequired()])
+    notes = TextAreaField ('Notes',validators=[DataRequired()])
 
-    submit = SubmitField ('Add Recipe')
+    submit = SubmitField ('Submit')
 

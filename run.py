@@ -97,7 +97,7 @@ def login():
                                    request.form['password']):
                 session['email'] = request.form['email']
                 session['logged_in'] = True
-                flash('You have been logged in!', 'success')
+                flash(f'Login successfull for {form.email.data}!', 'success')
                 return redirect(url_for('allrecipes'))
             else:
                 flash('Login Unsuccessful. Please check email address and password', 'danger')
@@ -106,27 +106,11 @@ def login():
 
 #---ROUTE TO ACCOUNT PAGE ----#
 @app.route('/account/', methods=['GET', 'POST'])
-@app.route('/account/<page>/<limit>', methods=['GET', 'POST'])
-def account(page=1, limit=8):
-
-    limit = int(limit)
-
-    if request.method == 'POST':
-        limit = int(request.form['limit'])
-        
-    page = int(page)
-    skip = page * limit - limit
-    maximum = math.ceil((mongo.db.users_recipes.count_documents({})) / limit)
-
-    users_recipes = list(mongo.db.users_recipes.find().skip(skip).limit(limit))
-    return render_template(
-        'account.html',
-        title='My Account',
-        recipes=users_recipes,
-        page=page,
-        pages=range(1, maximum + 1),
-        maximum=maximum, limit=limit
-    )
+def account():
+    user_account = session['email']
+    query = ({'email': user_account})
+    my_recipes = mongo.db.users_recipes.find(query)
+    return render_template('account.html', recipes=my_recipes)
 
 @app.route('/show_myrecipe/<account_id>', methods=['GET', 'POST'])
 def show_myrecipe(account_id):
@@ -144,22 +128,21 @@ def logout():
 #---ROUTE TO ADD RECIPE PAGE ----#
 @app.route('/addrecipes/', methods=['GET', 'POST'])
 def addrecipes():
+    form = RecipesForm(request.form)
+    users_recipes = mongo.db.users_recipes
 
-        form = RecipesForm(request.form)
-
-        users_recipes = mongo.db.users_recipes
-        new_recipe = {
+    new_recipe = {
             'recipe_name': request.form.get('recipe_name'),
             'categories': request.form.get('categories'),
             'preparation_time': request.form.get('preparation_time'),
             'cooking_time': request.form.get('cooking_time'),
             'ingredients':request.form.get ('ingredients'),
             'methods': request.form.get('methods'),
+            'notes': request.form.get('notes'),
             'email': session['email']
             }
-        users_recipes.insert_one(new_recipe)
-
-        return render_template ('addrecipes.html', recipe=new_recipe, form=form)
+    users_recipes.insert_one(new_recipe)
+    return render_template ('addrecipes.html', recipe=new_recipe, form=form)
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
