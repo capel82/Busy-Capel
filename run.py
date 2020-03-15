@@ -105,7 +105,7 @@ def login():
     return render_template('login.html', title='login', form=form)
 
 #---ROUTE TO ACCOUNT PAGE ----#
-@app.route('/account/', methods=['GET', 'POST'])
+@app.route('/account', methods=['GET', 'POST'])
 def account():
     user_account = session['email']
     query = ({'email': user_account})
@@ -116,8 +116,7 @@ def account():
 def show_myrecipe(account_id):
  
     my_recipe = mongo.db.users_recipes.find_one({'_id': ObjectId(account_id)})
-    return render_template(
-        'myrecipes.html', recipe=my_recipe)
+    return render_template('myrecipes.html', recipe=my_recipe)
 
 #---ROUTE TO LOGOUT ---#
 @app.route("/logout")
@@ -126,23 +125,29 @@ def logout():
     return redirect(url_for('homepage'))    
 
 #---ROUTE TO ADD RECIPE PAGE ----#
-@app.route('/addrecipes/', methods=['GET', 'POST'])
+@app.route('/addrecipes', methods=['GET', 'POST'])
 def addrecipes():
     form = RecipesForm(request.form)
     users_recipes = mongo.db.users_recipes
 
-    new_recipe = {
+    if request.method == 'GET':
+        return render_template('addrecipes.html', form=form,
+                               title='Add Recipe')
+
+    if request.method == 'POST':
+        new_recipe = {
             'recipe_name': request.form.get('recipe_name'),
             'categories': request.form.get('categories'),
             'preparation_time': request.form.get('preparation_time'),
             'cooking_time': request.form.get('cooking_time'),
-            'ingredients':request.form.get ('ingredients'),
-            'methods': request.form.get('methods'),
-            'notes': request.form.get('notes'),
+            'ingredients':request.form.getlist ('ingredients'),
+            'methods': request.form.getlist('methods'),
+            'notes': request.form.getlist('notes'),
             'email': session['email']
             }
-    users_recipes.insert_one(new_recipe)
-    return render_template ('addrecipes.html', recipe=new_recipe, form=form)
+        users_recipes.insert_one(new_recipe)
+        flash('Your recipe saved!','success')
+        return render_template ('addrecipes.html', recipe=new_recipe, form=form)
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

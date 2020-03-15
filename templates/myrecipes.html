@@ -1,13 +1,18 @@
 {% extends 'base.html' %} {% block content %}
 
 <div id="my_recipe" class="container"> 
+
     <div class="row d-flex bg-light my-3 justify-content-center my_recipetitle">
         <h2 class="mt-2">{{recipe.recipe_name}}</h2>
     </div>
 
     <div class="row my-2 ml-2 d-flex justify-content-center">
         <div class="col-md-6">
-            <img class= "recipe_image" src="{{recipe.recipe_image}}" alt= "smashed-chicken.jpg" class = "img-fluid p-3">
+            {% if recipe.recipe_image %}
+            <img class= "recipe_image" src="{{recipe.recipe_image}}" alt= "alternative-images" class = "img-fluid p-3">
+            {% else %}
+                 <img src="{{ url_for('static', filename='images/chilli-pots.jpg') }}" class="recipe_image" alt="alternative-image">
+            {% endif %}
         </div>
         <div class ="col-md-3 col-sm-12 text-center align-items-center p-2 my-3">
                 <i class= "fa fa-cutlery fa-2x"></i>

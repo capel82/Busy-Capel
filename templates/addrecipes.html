@@ -15,7 +15,7 @@
  <div id="addrecipes"class="container">
     <div class="row justify-content-center">
         <div class="col-sm-12 col-md-8 col-lg-8">
-        <form method="POST" action="">
+        <form method="POST" action="{{ url_for('addrecipes')}}">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom text-center mb-3">Add New Recipes</legend>
