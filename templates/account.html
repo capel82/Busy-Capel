@@ -15,6 +15,9 @@
                 <div class="card body">
                     <a class ="card-title text-success p-2" href="{{url_for('show_myrecipe', account_id=recipe._id)}}">{{recipe.recipe_name}}</a>
                 </div>
+                <div class="card footer">
+                    <a class ="btn btn-success p-2" href="{{url_for('edit_myrecipe', account_id=recipe._id)}}">EDIT</a>
+                </div>
             </div>       
         </div>
          {% endfor %}  

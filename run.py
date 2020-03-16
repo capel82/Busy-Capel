@@ -118,6 +118,36 @@ def show_myrecipe(account_id):
     my_recipe = mongo.db.users_recipes.find_one({'_id': ObjectId(account_id)})
     return render_template('myrecipes.html', recipe=my_recipe)
 
+@app.route('/edit_myrecipe/<account_id>', methods=['GET', 'POST'])
+def edit_myrecipe(account_id):
+    form = RecipesForm(request.form)
+    users_recipes = mongo.db.users_recipes
+
+    my_recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
+
+    return render_template('edit_myrecipe.html', recipe=my_recipe, form=form)
+
+@app.route('/update_myrecipe/<account_id>', methods=['GET', 'POST'])
+def update_myrecipe(account_id):
+    form = RecipesForm(request.form)
+    users_recipes = mongo.db.users_recipes
+
+    if request.method == 'POST':
+        recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
+        users_recipes.update({'_id': ObjectId(account_id)}, {
+            'recipe_name': request.form.get('recipe_name'),
+            'categories': request.form.get('categories'),
+            'preparation_time': request.form.get('preparation_time'),
+            'cooking_time': request.form.get('cooking_time'),
+            'ingredients':request.form.getlist ('ingredients'),
+            'methods': request.form.getlist('methods'),
+            'notes': request.form.getlist('notes'),
+            'email': session['email']
+            })
+        flash('Your recipe updated!','success')
+        return redirect(url_for('account')) 
+        return render_template ('myrecipes.html', recipe=recipe, form=form)
+
 #---ROUTE TO LOGOUT ---#
 @app.route("/logout")
 def logout():
@@ -133,7 +163,7 @@ def addrecipes():
     if request.method == 'GET':
         return render_template('addrecipes.html', form=form,
                                title='Add Recipe')
-
+    
     if request.method == 'POST':
         new_recipe = {
             'recipe_name': request.form.get('recipe_name'),
