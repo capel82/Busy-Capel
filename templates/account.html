@@ -1,5 +1,17 @@
 {% extends 'base.html' %} {% block content %}
-
+<div class="container mt-5">
+<div class="row d-flex justify-content-center">
+{% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} p-3 mb-2 bg-warning text-dark">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+    </div>
+</div>
 <section class="container">
    <h2 id="account" class="text-center pt-3 pb-1 font-italic"> My Recipes.</h2>
        <p class="text-center text-muted pb-4">Retrieve your saved recipes by clicking on the recipe title.</p>
@@ -14,10 +26,7 @@
                 {% endif %}
                 <div class="card body">
                     <a class ="card-title text-success p-2" href="{{url_for('show_myrecipe', account_id=recipe._id)}}">{{recipe.recipe_name}}</a>
-                </div>
-                <div class="card footer">
-                    <a class ="btn btn-success p-2" href="{{url_for('edit_myrecipe', account_id=recipe._id)}}">EDIT</a>
-                </div>
+                </div>   
             </div>       
         </div>
          {% endfor %}  

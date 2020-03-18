@@ -2,14 +2,14 @@
 
 <div id="my_recipe" class="container"> 
 
-    <div class="row d-flex bg-light my-3 justify-content-center my_recipetitle">
+    <div class="row m-3 d-flex bg-light justify-content-center my_recipetitle">
         <h2 class="mt-2">{{recipe.recipe_name}}</h2>
     </div>
 
     <div class="row my-2 ml-2 d-flex justify-content-center">
         <div class="col-md-6">
             {% if recipe.recipe_image %}
-            <img class= "recipe_image" src="{{recipe.recipe_image}}" alt= "alternative-images" class = "img-fluid p-3">
+            <img class= "img-fluid p-3 recipe_image" src="{{recipe.recipe_image}}" alt= "alternative-images">
             {% else %}
                  <img src="{{ url_for('static', filename='images/chilli-pots.jpg') }}" class="recipe_image" alt="alternative-image">
             {% endif %}
@@ -47,6 +47,12 @@
                 </li>
                 {% endfor %}
             </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class= "col-md-12 inline-block  d-flex justify-content-center my-3">
+                    <a class ="btn btn-warning p-2 mr-5" href="{{url_for('edit_myrecipe', account_id=recipe._id)}}">EDIT RECIPE</a>
+                    <a class ="btn btn-danger p-2" href="{{url_for('delete_recipe', account_id=recipe._id)}}">DELETE</a>
         </div>
     </div>
 </div>

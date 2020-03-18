@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}
+
+<section class="container">
+    <h2 id="inspired" class="text-center pt-3 pb-1 font-italic"> Starters</h2>
+    <p class="text-center text-muted pb-4">Start your meal with high protein starters!</p>
+    <div class="row">
+        <div class="col-md-12 text-center pb-4">
+            <div class="dropdown">
+                <button class="btn btn-success  dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <a class="dropdown-item btn" href="{{url_for('starter')}}">Starters</a>
+                    <a class="dropdown-item btn" href="{{url_for('mains')}}">Mains</a>
+                    <a class="dropdown-item btn" href="{{url_for('desserts')}}">Desserts</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        {% for starter in categories %}
+        <div class="col-sm-12 col-md-3 my-2">
+            <div class="card text-center">
+                    <img class="card-img-top" src="{{starter.image}}" alt="Card image cap"></img>
+                <div class="card-body">
+                    <a class ="card-title text-success" href="{{url_for('show_recipe', recipe_id=starter._id)}}">{{starter.recipe_name}}</a>
+                </div>
+            </div>       
+        </div>
+         {% endfor %}  
+    </div> 
+ </section>
+ {% endblock content %}

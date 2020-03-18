@@ -57,6 +57,28 @@ def show_recipe(recipe_id):
     return render_template(
         'recipe.html', recipe=the_recipe)
 
+@app.route('/starter')
+def starter():
+
+         starter = mongo.db.recipes.find ({'categories': 'Starter'})
+         return render_template('starter.html',
+                           categories=starter)
+
+@app.route('/mains')
+def mains():
+
+         mains = mongo.db.recipes.find ({'categories': 'Main'})
+         return render_template('mains.html',
+                           categories=mains)
+
+
+@app.route('/desserts')
+def desserts():
+
+         desserts = mongo.db.recipes.find ({'categories': 'Dessert'})
+         return render_template('desserts.html',
+                           categories=desserts)
+                           
 #----ROUTE TO REGISTER NEW ACCOUNT ----#
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -120,12 +142,11 @@ def show_myrecipe(account_id):
 
 @app.route('/edit_myrecipe/<account_id>', methods=['GET', 'POST'])
 def edit_myrecipe(account_id):
-    form = RecipesForm(request.form)
     users_recipes = mongo.db.users_recipes
+    edit_recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
+    form = RecipesForm(data=edit_recipe)
 
-    my_recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
-
-    return render_template('edit_myrecipe.html', recipe=my_recipe, form=form)
+    return render_template('edit_myrecipe.html', recipe=edit_recipe, form=form)
 
 @app.route('/update_myrecipe/<account_id>', methods=['GET', 'POST'])
 def update_myrecipe(account_id):
@@ -134,19 +155,26 @@ def update_myrecipe(account_id):
 
     if request.method == 'POST':
         recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
+
         users_recipes.update({'_id': ObjectId(account_id)}, {
             'recipe_name': request.form.get('recipe_name'),
             'categories': request.form.get('categories'),
             'preparation_time': request.form.get('preparation_time'),
             'cooking_time': request.form.get('cooking_time'),
-            'ingredients':request.form.getlist ('ingredients'),
+            'ingredients':request.form.get('ingredients'),
             'methods': request.form.getlist('methods'),
             'notes': request.form.getlist('notes'),
             'email': session['email']
             })
-        flash('Your recipe updated!','success')
+        flash('Your recipe has been updated!','success')
         return redirect(url_for('account')) 
         return render_template ('myrecipes.html', recipe=recipe, form=form)
+
+@app.route('/delete_recipe/<account_id>', methods=['GET', 'POST'])
+def delete_recipe(account_id):
+    mongo.db.users_recipes.remove({'_id': ObjectId(account_id)})
+    flash('Your recipe has been deleted!', 'warning')
+    return redirect(url_for('account'))
 
 #---ROUTE TO LOGOUT ---#
 @app.route("/logout")
@@ -163,14 +191,13 @@ def addrecipes():
     if request.method == 'GET':
         return render_template('addrecipes.html', form=form,
                                title='Add Recipe')
-    
     if request.method == 'POST':
         new_recipe = {
             'recipe_name': request.form.get('recipe_name'),
             'categories': request.form.get('categories'),
             'preparation_time': request.form.get('preparation_time'),
             'cooking_time': request.form.get('cooking_time'),
-            'ingredients':request.form.getlist ('ingredients'),
+            'ingredients': request.form.getlist('ingredients'),
             'methods': request.form.getlist('methods'),
             'notes': request.form.getlist('notes'),
             'email': session['email']
@@ -178,6 +205,7 @@ def addrecipes():
         users_recipes.insert_one(new_recipe)
         flash('Your recipe saved!','success')
         return render_template ('addrecipes.html', recipe=new_recipe, form=form)
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

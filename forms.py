@@ -26,6 +26,8 @@ class RecipesForm(FlaskForm):
     ingredients = TextAreaField ('Ingredients',validators=[DataRequired()])
     methods = TextAreaField ('Methods',validators=[DataRequired()])
     notes = TextAreaField ('Notes',validators=[DataRequired()])
+    email = StringField('email',
+                        validators=[DataRequired(), Email()])
 
     submit = SubmitField ('Submit')
 

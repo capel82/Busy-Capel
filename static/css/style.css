@@ -5,6 +5,7 @@ html {
     padding:0;
     font-family: 'Lora', sans-serif;
 }
+
 /*--NAVBAR--*/
 .navbar {
     background-color: #408000;
@@ -101,7 +102,7 @@ legend{
 }
 
 .img-fluid {
-    max-width: 100%; 
+    max-width: 90%; 
     height: auto;}
 
 .methods {

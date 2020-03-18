@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-<div class="container my-5">
+<div class="container my-4">
 <div class="row d-flex justify-content-center">
 {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -13,13 +13,13 @@
     </div>
 </div>
 <div id="individual_recipe" class="container"> 
-    <div class="row d-flex justify-content-center">
+    <div class="row p-2 d-flex justify-content-center">
         <h1 class="recipe_title">{{recipe.recipe_name}}</h1>
     </div>
 
-    <div class="row my-5 ml-2 d-flex justify-content-center">
+    <div class="row my-3 ml-2 d-flex justify-content-center">
         <div class="col-md-6">
-            <img class= "recipe_image" src="{{recipe.image}}" alt= "smashed-chicken.jpg" class = "img-fluid p-3">
+            <img class= "img-fluid p-3 recipe_image" src="{{recipe.image}}" alt= "smashed-chicken.jpg">
         </div>
         <div class ="col-md-3 col-sm-12 text-center align-items-center p-2 my-3">
                 <i class= "fa fa-cutlery fa-2x"></i>
