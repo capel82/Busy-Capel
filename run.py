@@ -6,9 +6,8 @@ from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, \
     check_password_hash
 #---- forms extension-flask WTF----#
-
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from forms import RegistrationForm, LoginForm, RecipesForm
 #---- secret keys for MongoDB Atlas----#
@@ -20,66 +19,14 @@ app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
 app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY')
 mongo = PyMongo(app)
 
+#----ROUTE TO HOMEPAGE----#
 @app.route('/')
 @app.route('/homepage')
 def homepage():
     return render_template("index.html", title='Homepage', recipes=mongo.db.recipes.find().limit(4))
-
-
-#----- READ ALL RECIPES -----#
-@app.route('/allrecipes/', methods=['GET', 'POST'])
-@app.route('/allrecipes/<page>/<limit>', methods=['GET', 'POST'])
-def allrecipes(page=1, limit=8):
-
-    limit = int(limit)
-
-    if request.method == 'POST':
-        limit = int(request.form['limit'])
-        
-    page = int(page)
-    skip = page * limit - limit
-    maximum = math.ceil( (mongo.db.recipes.count_documents({})) / limit)
-
-    recipes = list(mongo.db.recipes.find().skip(skip).limit( limit ))
-    return render_template(
-        'allrecipes.html',
-        title='Recipes',
-        recipes=recipes,
-        page=page,
-        pages=range(1, maximum + 1),
-        maximum=maximum, limit=limit
-    )
-#----READ SINGLE RECIPE----#
-@app.route('/show_recipe/<recipe_id>', methods=['GET', 'POST'])
-def show_recipe(recipe_id):
- 
-    the_recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
-    return render_template(
-        'recipe.html', recipe=the_recipe)
-
-@app.route('/starter')
-def starter():
-
-         starter = mongo.db.recipes.find ({'categories': 'Starter'})
-         return render_template('starter.html',
-                           categories=starter)
-
-@app.route('/mains')
-def mains():
-
-         mains = mongo.db.recipes.find ({'categories': 'Main'})
-         return render_template('mains.html',
-                           categories=mains)
-
-
-@app.route('/desserts')
-def desserts():
-
-         desserts = mongo.db.recipes.find ({'categories': 'Dessert'})
-         return render_template('desserts.html',
-                           categories=desserts)
-                           
-#----ROUTE TO REGISTER NEW ACCOUNT ----#
+    
+#----CRUD OPERATION: Create----#
+    #----ROUTE TO REGISTER NEW ACCOUNT ----#
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -105,7 +52,7 @@ def register():
 
     return render_template('register.html', title='Register', form=form)
 
-#---ROUTE TO LOGIN PAGE ----#
+    #---ROUTE TO LOGIN PAGE ----#
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -126,63 +73,7 @@ def login():
             return redirect(url_for('login'))
     return render_template('login.html', title='login', form=form)
 
-#---ROUTE TO ACCOUNT PAGE ----#
-@app.route('/account', methods=['GET', 'POST'])
-def account():
-    user_account = session['email']
-    query = ({'email': user_account})
-    my_recipes = mongo.db.users_recipes.find(query)
-    return render_template('account.html', recipes=my_recipes)
-
-@app.route('/show_myrecipe/<account_id>', methods=['GET', 'POST'])
-def show_myrecipe(account_id):
- 
-    my_recipe = mongo.db.users_recipes.find_one({'_id': ObjectId(account_id)})
-    return render_template('myrecipes.html', recipe=my_recipe)
-
-@app.route('/edit_myrecipe/<account_id>', methods=['GET', 'POST'])
-def edit_myrecipe(account_id):
-    users_recipes = mongo.db.users_recipes
-    edit_recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
-    form = RecipesForm(data=edit_recipe)
-
-    return render_template('edit_myrecipe.html', recipe=edit_recipe, form=form)
-
-@app.route('/update_myrecipe/<account_id>', methods=['GET', 'POST'])
-def update_myrecipe(account_id):
-    form = RecipesForm(request.form)
-    users_recipes = mongo.db.users_recipes
-
-    if request.method == 'POST':
-        recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
-
-        users_recipes.update({'_id': ObjectId(account_id)}, {
-            'recipe_name': request.form.get('recipe_name'),
-            'categories': request.form.get('categories'),
-            'preparation_time': request.form.get('preparation_time'),
-            'cooking_time': request.form.get('cooking_time'),
-            'ingredients':request.form.get('ingredients'),
-            'methods': request.form.getlist('methods'),
-            'notes': request.form.getlist('notes'),
-            'email': session['email']
-            })
-        flash('Your recipe has been updated!','success')
-        return redirect(url_for('account')) 
-        return render_template ('myrecipes.html', recipe=recipe, form=form)
-
-@app.route('/delete_recipe/<account_id>', methods=['GET', 'POST'])
-def delete_recipe(account_id):
-    mongo.db.users_recipes.remove({'_id': ObjectId(account_id)})
-    flash('Your recipe has been deleted!', 'warning')
-    return redirect(url_for('account'))
-
-#---ROUTE TO LOGOUT ---#
-@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect(url_for('homepage'))    
-
-#---ROUTE TO ADD RECIPE PAGE ----#
+    #---ROUTE TO ADD RECIPE PAGE ----#
 @app.route('/addrecipes', methods=['GET', 'POST'])
 def addrecipes():
     form = RecipesForm(request.form)
@@ -206,6 +97,112 @@ def addrecipes():
         flash('Your recipe saved!','success')
         return render_template ('addrecipes.html', recipe=new_recipe, form=form)
 
+#----CRUD OPERATION: Read----#
+    #----- READ ALL RECIPES -----#
+@app.route('/allrecipes/', methods=['GET', 'POST'])
+@app.route('/allrecipes/<page>/<limit>', methods=['GET', 'POST'])
+def allrecipes(page=1, limit=8):
+
+    limit = int(limit)
+
+    if request.method == 'POST':
+        limit = int(request.form['limit'])
+        
+    page = int(page)
+    skip = page * limit - limit
+    maximum = math.ceil( (mongo.db.recipes.count_documents({})) / limit)
+
+    recipes = list(mongo.db.recipes.find().skip(skip).limit( limit ))
+    return render_template(
+        'allrecipes.html',
+        title='Recipes',
+        recipes=recipes,
+        page=page,
+        pages=range(1, maximum + 1),
+        maximum=maximum, limit=limit
+    )
+    #----READ SINGLE RECIPE----#
+@app.route('/show_recipe/<recipe_id>', methods=['GET', 'POST'])
+def show_recipe(recipe_id):
+ 
+    the_recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    return render_template(
+        'recipe.html', recipe=the_recipe)
+    #----READ STARTERS CATEGORIES----#
+@app.route('/starter')
+def starter():
+         starter = mongo.db.recipes.find ({'categories': 'Starter'})
+         return render_template('starter.html',
+                           categories=starter)
+    #----READ MAINS CATEGORIES----#
+@app.route('/mains')
+def mains():
+         mains = mongo.db.recipes.find ({'categories': 'Main'})
+         return render_template('mains.html',
+                           categories=mains)
+
+    #----READ DESSERTS CATEGORIES----#
+@app.route('/desserts')
+def desserts():
+         desserts = mongo.db.recipes.find ({'categories': 'Dessert'})
+         return render_template('desserts.html',
+                           categories=desserts)
+                           
+
+    #---READ ACCOUNT PAGE ----#
+@app.route('/account', methods=['GET', 'POST'])
+def account():
+    user_account = session['email']
+    query = ({'email': user_account})
+    my_recipes = mongo.db.users_recipes.find(query)
+    return render_template('account.html', recipes=my_recipes)
+    #---READ USER RECIPES PAGE ----#
+@app.route('/show_myrecipe/<account_id>', methods=['GET', 'POST'])
+def show_myrecipe(account_id):
+    my_recipe = mongo.db.users_recipes.find_one({'_id': ObjectId(account_id)})
+    return render_template('myrecipes.html', recipe=my_recipe)
+#----CRUD OPERATION: Update----#
+@app.route('/edit_myrecipe/<account_id>', methods=['GET', 'POST'])
+def edit_myrecipe(account_id):
+    users_recipes = mongo.db.users_recipes
+    edit_recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
+    form = RecipesForm(data=edit_recipe)
+
+    return render_template('edit_myrecipe.html', recipe=edit_recipe, form=form)
+
+@app.route('/update_myrecipe/<account_id>', methods=['GET', 'POST'])
+def update_myrecipe(account_id):
+    form = RecipesForm(request.form)
+    users_recipes = mongo.db.users_recipes
+    recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
+    if request.method == 'POST':
+        recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
+        users_recipes.update_one({'_id': ObjectId(account_id)},{'$set':  {
+            'recipe_name': request.form.get('recipe_name'),
+            'categories': request.form.get('categories'),
+            'preparation_time': request.form.get('preparation_time'),
+            'cooking_time': request.form.get('cooking_time'),
+            'ingredients':request.form.getlist('ingredients'),
+            'methods': request.form.getlist('methods'),
+            'notes': request.form.getlist('notes'),
+            'email': session['email']
+            }})
+        flash('Your recipe has been updated!','success')
+        return redirect(url_for('account')) 
+        return render_template ('myrecipes.html', recipe=recipe, form=form)
+
+#----CRUD OPERATION: Delete----#
+@app.route('/delete_recipe/<account_id>', methods=['GET', 'POST'])
+def delete_recipe(account_id):
+    mongo.db.users_recipes.remove({'_id': ObjectId(account_id)})
+    flash('Your recipe has been deleted!', 'warning')
+    return redirect(url_for('account'))
+
+#---ROUTE TO LOGOUT ---#
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for('homepage'))    
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
