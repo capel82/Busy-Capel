@@ -143,3 +143,7 @@ padding:30px;
 .card-header {
     background-color: #D2FFA6;
 }
+
+ul{
+    list-style-type: none;
+}

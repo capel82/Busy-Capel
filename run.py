@@ -24,7 +24,7 @@ mongo = PyMongo(app)
 @app.route('/homepage')
 def homepage():
     return render_template("index.html", title='Homepage', recipes=mongo.db.recipes.find().limit(4))
-    
+
 #----CRUD OPERATION: Create----#
     #----ROUTE TO REGISTER NEW ACCOUNT ----#
 @app.route("/register", methods=['GET', 'POST'])
@@ -175,16 +175,20 @@ def update_myrecipe(account_id):
     form = RecipesForm(request.form)
     users_recipes = mongo.db.users_recipes
     recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
+    ingredients = request.form.get('ingredients').splitlines()
+    methods = request.form.get('methods').splitlines()
     if request.method == 'POST':
         recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
-        users_recipes.update_one({'_id': ObjectId(account_id)},{'$set':  {
+        users_recipes.update({'_id': ObjectId(account_id)},{{
             'recipe_name': request.form.get('recipe_name'),
+            'recipe_image': request.form['recipe_image'],
             'categories': request.form.get('categories'),
+            'serving_portion': request.form.get('serving_portion'),
             'preparation_time': request.form.get('preparation_time'),
             'cooking_time': request.form.get('cooking_time'),
-            'ingredients':request.form.getlist('ingredients'),
-            'methods': request.form.getlist('methods'),
-            'notes': request.form.getlist('notes'),
+            'ingredients':ingredients,
+            'methods': methods,
+            'notes': request.form.to_dict('notes'),
             'email': session['email']
             }})
         flash('Your recipe has been updated!','success')

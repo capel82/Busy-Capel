@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, TextAreaField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Email, Optional, EqualTo
 
 
 class RegistrationForm(FlaskForm):
@@ -22,11 +22,11 @@ class RecipesForm(FlaskForm):
     categories= StringField ('Categories',validators=[DataRequired()])
     preparation_time = IntegerField ('Preparation Time (in minutes)',validators=[DataRequired()])
     cooking_time = IntegerField ('Cooking Time (in minutes)',validators=[DataRequired()])
+    serving_portion = IntegerField ('Serving Portion',validators=[DataRequired()])
     ingredients = TextAreaField('Ingredients',validators=[DataRequired()])
     methods = TextAreaField ('Methods',validators=[DataRequired()])
-    notes = TextAreaField ('Notes',validators=[DataRequired()])
-    email = StringField('email',
-                        validators=[DataRequired(), Email()])
-
+    recipe_image = StringField ('recipe_image',validators=[Optional()])
+    notes = TextAreaField ('Notes',validators=[Optional()])
+    email = StringField('email',validators=[DataRequired(), Email()])
     submit = SubmitField ('Submit')
 
