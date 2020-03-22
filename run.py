@@ -7,8 +7,8 @@ from werkzeug.security import generate_password_hash, \
     check_password_hash
 #---- forms extension-flask WTF----#
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, TextAreaField
+from wtforms.validators import DataRequired, Email, Optional, EqualTo
 from forms import RegistrationForm, LoginForm, RecipesForm
 #---- secret keys for MongoDB Atlas----#
 import env
@@ -78,23 +78,29 @@ def login():
 def addrecipes():
     form = RecipesForm(request.form)
     users_recipes = mongo.db.users_recipes
-
+    
     if request.method == 'GET':
         return render_template('addrecipes.html', form=form,
                                title='Add Recipe')
+                               
+    ingredients = request.form.get('ingredients').splitlines()
+    methods = request.form.get('methods').splitlines()
+
     if request.method == 'POST':
         new_recipe = {
             'recipe_name': request.form.get('recipe_name'),
             'categories': request.form.get('categories'),
+            'serving_portion': request.form.get('serving_portion'),
             'preparation_time': request.form.get('preparation_time'),
             'cooking_time': request.form.get('cooking_time'),
-            'ingredients': request.form.getlist('ingredients'),
-            'methods': request.form.getlist('methods'),
+            'ingredients': ingredients,
+            'methods': methods,
             'notes': request.form.getlist('notes'),
-            'email': session['email']
+             'email': session['email']
             }
         users_recipes.insert_one(new_recipe)
         flash('Your recipe saved!','success')
+        return redirect(url_for('account'))
         return render_template ('addrecipes.html', recipe=new_recipe, form=form)
 
 #----CRUD OPERATION: Read----#
@@ -170,29 +176,28 @@ def edit_myrecipe(account_id):
 
     return render_template('edit_myrecipe.html', recipe=edit_recipe, form=form)
 
-@app.route('/update_myrecipe/<account_id>', methods=['GET', 'POST'])
+@app.route('/update_myrecipe/<account_id>', methods=['POST'])
 def update_myrecipe(account_id):
     form = RecipesForm(request.form)
     users_recipes = mongo.db.users_recipes
-    recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
-    ingredients = request.form.get('ingredients').splitlines()
-    methods = request.form.get('methods').splitlines()
+
     if request.method == 'POST':
         recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
-        users_recipes.update({'_id': ObjectId(account_id)},{{
+        ingredients = request.form.get('ingredients').splitlines()
+        methods = request.form.get('methods').splitlines()
+
+        users_recipes.update({'_id': ObjectId(account_id)}, {
             'recipe_name': request.form.get('recipe_name'),
-            'recipe_image': request.form['recipe_image'],
             'categories': request.form.get('categories'),
-            'serving_portion': request.form.get('serving_portion'),
             'preparation_time': request.form.get('preparation_time'),
             'cooking_time': request.form.get('cooking_time'),
             'ingredients':ingredients,
             'methods': methods,
-            'notes': request.form.to_dict('notes'),
+            'notes': request.form.getlist('notes'),
             'email': session['email']
-            }})
-        flash('Your recipe has been updated!','success')
-        return redirect(url_for('account')) 
+            })
+        flash('Your recipe updated!','success')
+        return redirect(url_for('account', recipe_id=account_id)) 
         return render_template ('myrecipes.html', recipe=recipe, form=form)
 
 #----CRUD OPERATION: Delete----#

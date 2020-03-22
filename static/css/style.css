@@ -122,8 +122,14 @@ color: #fff;
 padding:30px;
 }
 /*--allrecipes.html--*/
+#allrecipes_page {
+    height:100vh;
+}
 #recipe_pagination.page-item {
     color: #408000;
+}
+#my_recipe {
+    height: 100vh;
 }
 /*--addrecipe.html--*/
 #add_recipe  h1 {
