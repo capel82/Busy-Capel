@@ -11,7 +11,8 @@ from wtforms import StringField, PasswordField, SubmitField, IntegerField, TextA
 from wtforms.validators import DataRequired, Email, Optional, EqualTo
 from forms import RegistrationForm, LoginForm, RecipesForm
 #---- secret keys for MongoDB Atlas----#
-import env
+if os.path.exists("env.py"):
+    import env
 
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = 'Cluster0'
