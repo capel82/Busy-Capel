@@ -13,7 +13,7 @@ from forms import RegistrationForm, LoginForm, RecipesForm
 #---- secret keys for MongoDB Atlas----#
 if os.path.exists("env.py"):
     import env
-
+''
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = 'Cluster0'
 app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
@@ -215,6 +215,6 @@ def logout():
     return redirect(url_for('homepage'))    
 
 if __name__ == '__main__':
-    app.run(host=os.environ.get('IP'),
-            port=int(8000),
-            debug=True)
+    app.run(os.environ.get('IP', '0.0.0.0'),
+            int(os.environ.get('PORT', '5000'),
+            debug=True))
