@@ -215,6 +215,6 @@ def logout():
     return redirect(url_for('homepage'))    
 
 if __name__ == '__main__':
-    app.run(os.environ.get('IP', '0.0.0.0'),
-            int(os.environ.get('PORT', '5000'),
-            debug=True))
+    app.run (os.environ.get('IP', '0.0.0.0'),
+            int(os.environ.get('PORT', '5000')),
+            debug=True)
