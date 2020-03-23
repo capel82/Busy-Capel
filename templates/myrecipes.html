@@ -1,17 +1,16 @@
 {% extends 'base.html' %} {% block content %}
 
-<div id="my_recipe" class="container"> 
-
-    <div class="row m-3 d-flex bg-light justify-content-center my_recipetitle">
-        <h2 class="mt-2">{{recipe.recipe_name}}</h2>
+<div id="singe_myrecipe" class="container"> 
+    <div class="row p-2 d-flex justify-content-center">
+        <h1 class="recipe_title">{{recipe.recipe_name}}</h1>
     </div>
 
-    <div class="row my-2 ml-2 d-flex justify-content-center">
+    <div class="row my-3 ml-2 d-flex justify-content-center">
         <div class="col-md-6">
             {% if recipe.recipe_image %}
             <img class= "img-fluid p-3 recipe_image" src="{{recipe.recipe_image}}" alt= "alternative-images">
             {% else %}
-                 <img src="{{ url_for('static', filename='images/chilli-pots.jpg') }}" class="recipe_image" alt="alternative-image">
+                 <img src="{{ url_for('static', filename='images/chilli-pots.jpg') }}" class="img-fluid" alt="alternative-image">
             {% endif %}
         </div>
         <div class ="col-md-3 col-sm-12 text-center align-items-center p-2 my-3">
@@ -27,7 +26,7 @@
             <p>Cooking time: {{recipe.cooking_time}}</p>
         </div>
     </div>
-    <div class=" row mb-3 ingredients_methods">
+    <div class=" row ingredients_methods">
         <div class= "ingredients col-md-6 col-sm-12 text-center">
             <h3 class="text-center">Ingredients</h3>
             <ul class=" recipe_ingredients mx-3">
@@ -40,29 +39,17 @@
         </div>
         <div class= "methods col-md-6 col-sm-12">
             <h3> Methods</h3>
-            <ul class="recipe_methods  ml-auto" style="inline-list-style:none;">
+            <ol class="recipe_methods  ml-auto">
                 {% for method in recipe.methods %}
                 <li>
                 {{method}}
                 </li>
                 {% endfor %}
-            </ul>
+            </ol>
         </div>
     </div>
-    <div class ="row">
-    <div class="col-md-12">
-    <h4>Notes:</h4>
-    <ul class="ml-auto">
-                {% for note in recipe.notes %}
-                <li>
-                {{note}}
-                </li>
-                {% endfor %}
-            </ul>
-    </div>
-    </div>
 
-    <div class="row">
+    <div class="row mt-5">
         <div class= "col-md-12 inline-block  d-flex justify-content-center my-3">
                     <a class ="btn btn-warning p-2 mr-5" href="{{url_for('edit_myrecipe', account_id=recipe._id)}}">EDIT RECIPE</a>
                     <a class ="btn btn-danger p-2" href="{{url_for('delete_recipe', account_id=recipe._id)}}">DELETE</a>
