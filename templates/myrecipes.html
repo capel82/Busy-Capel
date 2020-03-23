@@ -1,7 +1,19 @@
 {% extends 'base.html' %} {% block content %}
-
-<div id="singe_myrecipe" class="container"> 
-    <div class="row p-2 d-flex justify-content-center">
+<div class="container my-4">
+<div class="row d-flex justify-content-center">
+{% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} p-3 mb-2">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+    </div>
+</div>
+<div  class="container single_recipe"> 
+    <div class="row p-1 d-flex justify-content-center border border-success rounded bg-light">
         <h1 class="recipe_title">{{recipe.recipe_name}}</h1>
     </div>
 
@@ -46,13 +58,6 @@
                 </li>
                 {% endfor %}
             </ol>
-        </div>
-    </div>
-
-    <div class="row mt-5">
-        <div class= "col-md-12 inline-block  d-flex justify-content-center my-3">
-                    <a class ="btn btn-warning p-2 mr-5" href="{{url_for('edit_myrecipe', account_id=recipe._id)}}">EDIT RECIPE</a>
-                    <a class ="btn btn-danger p-2" href="{{url_for('delete_recipe', account_id=recipe._id)}}">DELETE</a>
         </div>
     </div>
 </div>
