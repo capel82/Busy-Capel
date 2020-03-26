@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="h-100">
 
 <head>
     <!--link for bootstraps css, font awesome, and own css stylesheet-->
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Caladea|Lora&display=swap:100,200,300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% if title %}
         <title>High Protein Recipes - {{ title }}</title>
     {% else %}
@@ -16,9 +16,11 @@
     {% endif %}
 </head>
 
-<body>
+<body class="d-flex flex-column h-100">
     {% block nav %} {% include 'nav.html' %} {% endblock %}
+<main role="main" class="flex-shrink-0">
     {% block content %} {% endblock %}
+</main>
     {% block footer %} {% include 'footer.html' %} {% endblock %}
     <!--jquery, popper.js, bootstrap min.js,-->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

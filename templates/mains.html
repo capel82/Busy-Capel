@@ -21,7 +21,7 @@
         {% for mains in categories %}
         <div class="col-sm-12 col-md-3 my-2">
             <div class="card text-center">
-                    <img class="card-img-top" src="{{mains.image}}" alt="Card image cap"></img>
+                    <img class="card-img-top categories_images" src="{{mains.image}}" alt="Card image cap"></img>
                 <div class="card-body">
                     <a class ="card-title text-success" href="{{url_for('show_recipe', recipe_id=mains._id)}}">{{mains.recipe_name}}</a>
                 </div>

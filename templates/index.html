@@ -5,7 +5,7 @@
         <div class="overlay mx-auto p-5">
             <p id="recipe_shoutout" class="display-4">High Protein Recipes</p>
             <hr class="my-4">
-            <h2>Fill your day with high protein food!</h2>
+            <p id="fill_your_day">Fill your day with high protein food!</p>
             <p>High protein diet helps to boost body metabolism and increase fat burning.  It also reduces appetite and hunger levels as well as increase musle mass and strength.</p> 
             <p>You can easily increase your protein intakes with simple recipes here. </p>
                 <a class="btn btn-light" role="button" href="{{url_for('allrecipes')}}">Browse Recipes</a>
@@ -29,9 +29,9 @@
          {% endfor %}  
     </div> 
     <div class="row">
-    <div class="col-sm-12 text-center p-5">
-    <a class="btn btn-outline-dark" role="button" href="{{url_for('allrecipes')}}"> More Recipes here</a>
-    </div>
+        <div class="col-sm-12 text-center p-5">
+            <a class="btn btn-outline-dark" role="button" href="{{url_for('allrecipes')}}"> More Recipes here</a>
+        </div>
     </div>
 </section>
 

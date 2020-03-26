@@ -106,28 +106,27 @@ def addrecipes():
 
 #----CRUD OPERATION: Read----#
     #----- READ ALL RECIPES -----#
-@app.route('/allrecipes/', methods=['GET', 'POST'])
-@app.route('/allrecipes/<page>/<limit>', methods=['GET', 'POST'])
-def allrecipes(page=1, limit=8):
 
-    limit = int(limit)
+@app.route("/allrecipes")
+def allrecipes():
+    #pagination
+    total = mongo.db.recipes.count()
+    page_limit=8
+    current_page = int(request.args.get('current_page', 1))
+    offset = int(request.args.get('offset', 0))
+    maximum = int(math.ceil(total / page_limit))
 
-    if request.method == 'POST':
-        limit = int(request.form['limit'])
-        
-    page = int(page)
-    skip = page * limit - limit
-    maximum = math.ceil( (mongo.db.recipes.count_documents({})) / limit)
-
-    recipes = list(mongo.db.recipes.find().skip(skip).limit( limit ))
+    recipes =  mongo.db.recipes.find().limit(page_limit).skip(offset)
     return render_template(
         'allrecipes.html',
-        title='Recipes',
         recipes=recipes,
-        page=page,
-        pages=range(1, maximum + 1),
-        maximum=maximum, limit=limit
-    )
+        total=total,
+        page_limit=page_limit,
+        current_page=current_page,
+        offset=offset,
+        maximum=maximum,
+        )
+
     #----READ SINGLE RECIPE----#
 @app.route('/show_recipe/<recipe_id>', methods=['GET', 'POST'])
 def show_recipe(recipe_id):
@@ -174,7 +173,6 @@ def edit_myrecipe(account_id):
     users_recipes = mongo.db.users_recipes
     edit_recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
     form = RecipesForm(data=edit_recipe)
-
     return render_template('edit_myrecipe.html', recipe=edit_recipe, form=form)
 
 @app.route('/update_myrecipe/<account_id>', methods=['POST'])
