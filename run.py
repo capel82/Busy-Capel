@@ -112,17 +112,22 @@ def allrecipes():
     #pagination
     total = mongo.db.recipes.count()
     page_limit=8
-    current_page = int(request.args.get('current_page', 1))
-    offset = int(request.args.get('offset', 0))
+    offset = int(request.args.get('offset', 1))
     maximum = int(math.ceil(total / page_limit))
+    current_page = int(request.args.get('current_page', 1))
+    pages = range(1, maximum + 1)
 
-    recipes =  mongo.db.recipes.find().limit(page_limit).skip(offset)
+
+    recipes =  mongo.db.recipes.find().limit(page_limit).skip(
+        (current_page - 1)*page_limit)
+
     return render_template(
         'allrecipes.html',
         recipes=recipes,
         total=total,
         page_limit=page_limit,
         current_page=current_page,
+        pages=pages,
         offset=offset,
         maximum=maximum,
         )
