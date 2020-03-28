@@ -9,7 +9,7 @@ from werkzeug.security import generate_password_hash, \
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, TextAreaField
 from wtforms.validators import DataRequired, Email, Optional, EqualTo
-from forms import RegistrationForm, LoginForm, RecipesForm
+from forms import RegistrationForm, LoginForm
 #---- secret keys for MongoDB Atlas----#
 if os.path.exists("env.py"):
     import env
@@ -77,33 +77,30 @@ def login():
     #---ROUTE TO ADD RECIPE PAGE ----#
 @app.route('/addrecipes', methods=['GET', 'POST'])
 def addrecipes():
-    form = RecipesForm(request.form)
+    users_recipes = mongo.db.users_recipes 
+
+    return render_template("addrecipes.html",recipes=users_recipes.find())
+
+@app.route('/insert_recipes', methods=['POST'])
+def insert_recipes():
     users_recipes = mongo.db.users_recipes
-    
-    if request.method == 'GET':
-        return render_template('addrecipes.html', form=form,
-                               title='Add Recipe')
-                               
-    ingredients = request.form.get('ingredients').splitlines()
-    methods = request.form.get('methods').splitlines()
-
-    if request.method == 'POST':
+    if request.method == "POST":
+        (request.form.to_dict())
         new_recipe = {
-            'recipe_name': request.form.get('recipe_name'),
-            'categories': request.form.get('categories'),
-            'serving_portion': request.form.get('serving_portion'),
-            'preparation_time': request.form.get('preparation_time'),
-            'cooking_time': request.form.get('cooking_time'),
-            'ingredients': ingredients,
-            'methods': methods,
-            'notes': request.form.getlist('notes'),
-             'email': session['email']
-            }
+            "recipe_name": request.form.get("recipe_name"),
+            "categories": request.form.get("categories"),
+            "preparation_time": request.form.get("preparation_time"),
+            "cooking_time": request.form.get("cooking_time"),
+            "serving_portion": request.form.get("serving_portion"),
+            "ingredients": list(request.form.get("ingredients").split("\n")),
+            "methods": list(request.form.get("methods").split("\n")),
+            "notes": request.form.get("notes"),
+            "email": session.get("email"),
+        }
         users_recipes.insert_one(new_recipe)
-        flash('Your recipe saved!','success')
+        flash('Your New Recipe has been added into your account.', 'success')
         return redirect(url_for('account'))
-        return render_template ('addrecipes.html', recipe=new_recipe, form=form)
-
+    return render_template("addrecipes.html", recipes = new_recipe)
 #----CRUD OPERATION: Read----#
     #----- READ ALL RECIPES -----#
 
@@ -117,8 +114,7 @@ def allrecipes():
     current_page = int(request.args.get('current_page', 1))
     pages = range(1, maximum + 1)
 
-
-    recipes =  mongo.db.recipes.find().limit(page_limit).skip(
+    recipes = mongo.db.recipes.find().limit(page_limit).skip(
         (current_page - 1)*page_limit)
 
     return render_template(
@@ -180,26 +176,25 @@ def edit_myrecipe(account_id):
     form = RecipesForm(data=edit_recipe)
     return render_template('edit_myrecipe.html', recipe=edit_recipe, form=form)
 
+
 @app.route('/update_myrecipe/<account_id>', methods=['POST'])
 def update_myrecipe(account_id):
     form = RecipesForm(request.form)
     users_recipes = mongo.db.users_recipes
-
+    recipe_dict = request.form.to_dict()
     if request.method == 'POST':
         recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
-        ingredients = request.form.get('ingredients').splitlines()
-        methods = request.form.get('methods').splitlines()
+        recipe_dict['ingredients'] = request.form['ingredients'].strip().replace('\r\n', '|')
+        recipe_dict['method'] = request.form['method'].strip().replace('\r\n', '|')
+        recipe_dict['recipe_name'] = request.form.get['recipe_name']
+        recipe_dict['categories'] = request.form.get['categories']
+        recipe_dict['preparation_time'] = request.form.get['preparation_time']
+        recipe_dict['cooking_time'] = request.form.get['cooking_time']
+        recipe_dict['notes'] = request.form.get['notes']
+        recipe_dict['email'] = request.form.get['email']
 
-        users_recipes.update({'_id': ObjectId(account_id)}, {
-            'recipe_name': request.form.get('recipe_name'),
-            'categories': request.form.get('categories'),
-            'preparation_time': request.form.get('preparation_time'),
-            'cooking_time': request.form.get('cooking_time'),
-            'ingredients':ingredients,
-            'methods': methods,
-            'notes': request.form.getlist('notes'),
-            'email': session['email']
-            })
+        users_recipes.update_one({'_id':ObjectId(account_id)}, {"$set": recipe_dict})
+
         flash('Your recipe updated!','success')
         return redirect(url_for('account', recipe_id=account_id)) 
         return render_template ('myrecipes.html', recipe=recipe, form=form)

@@ -66,6 +66,7 @@
                     <a class="page-link text-success" href="{{ url_for('allrecipes', current_page=page) }}">{{page}}</a></li>
                     {% endif %} 
                 {% endfor %}
+                
                 {% if current_page < maximum  %}
                 <li class="page-item">
                     <a class="page-link text-success" href="{{url_for('allrecipes', current_page=current_page+1, offset=offset+page_limit) }}" aria-label="Next">

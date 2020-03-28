@@ -12,134 +12,67 @@
           {% endwith %}
     </div>
 </div>
+
  <div id="addrecipes"class="container">
     <div class="row justify-content-center">
         <div class="col-sm-12 col-md-8 col-lg-8">
-        <form method="POST" action="{{ url_for('addrecipes')}}">
-            {{ form.hidden_tag() }}
+        <form method="POST" action="{{ url_for('insert_recipes')}}">
             <fieldset class="form-group">
                 <legend class="border-bottom text-center mb-3">Add New Recipes</legend>
                 <p class="text-muted text-center font-italic h5 mb-3">to save your own recipes</p>
                 <div class="form-group">
-                    {{ form.recipe_name.label(class="form-control-label") }}
-                    {% if form.recipe_name.errors %}
-                        {{ form.recipe_name(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.recipe_name.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.recipe_name(class="form-control form-control-lg") }}
-                    {% endif %}
+                    <label for="validationCustom03">Recipe Name</label>
+                    <input type="text" class="form-control"id="recipe_name" name="recipe_name" required>
+                    <div class="invalid-feedback">
+                        Please provide a recipe name
+                    </div>
+                </div>
+              
+                <div class="form-group">
+                    <label for="validationCustom03">Categories</label>
+                    <select class="custom-select" size="3"id="categories" name="categories">
+                        <option value="1">Starter</option>
+                        <option value="2">Main</option>
+                        <option value="3">Dessert</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    {{ form.categories.label(class="form-control-label") }}
-                    {% if form.categories.errors %}
-                        {{ form.categories(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.categories.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.categories(class="form-control form-control-lg") }}
-                    {% endif %}
+                    <label for="validationCustom03">Preparation Time</label>
+                    <input type="text" class="form-control" id="preparation_time" name="preparation_time" placeholder="in minutes" required>
+                    <div class="invalid-feedback">
+                        in minutes
+                    </div>
                 </div>
                 <div class="form-group">
-                    {{ form.preparation_time.label(class="form-control-label") }}
-                    {% if form.preparation_time.errors %}
-                        {{ form.preparation_time(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.preparation_time.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.preparation_time(class="form-control form-control-lg") }}
-                    {% endif %}
+                    <label for="validationCustom03">Cooking Time</label>
+                    <input type="text" class="form-control" id="cooking_time" name="cooking_time" placeholder="in minutes" required>
+                    <div class="invalid-feedback">
+                        in minutes
+                    </div>
                 </div>
                 <div class="form-group">
-                    {{ form.cooking_time.label(class="form-control-label") }}
-                    {% if form.cooking_time.errors %}
-                        {{ form.cooking_time(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.cooking_time.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.cooking_time(class="form-control form-control-lg") }}
-                    {% endif %}
+                    <label for="validationCustom03">Serving Portion</label>
+                    <input type="text" class="form-control" id="serving_portion" name="serving_portion" required>
+                    <div class="invalid-feedback">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Ingredients</label>
+                    <textarea class="form-control" id="ingredients" name="ingredients" placeholder="one item per line"rows="4" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Methods</label>
+                    <textarea class="form-control" id="methods" name="methods" placeholder="one step per line" rows="5" required></textarea>
                 </div>
                 <div class="form-group">
-                    {{ form.serving_portion.label(class="form-control-label") }}
-                    {% if form.serving_portion.errors %}
-                        {{ form.serving_portion(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.serving_portion.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.serving_portion(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.ingredients.label(class="form-control-label") }}
-                    {% if form.ingredients.errors %}
-                        {{ form.ingredients(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.ingredients.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.ingredients(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.methods.label(class="form-control-label") }}
-                    {% if form.methods.errors %}
-                        {{ form.methods(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.methods.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.methods(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.recipe_image.label(class="form-control-label") }}
-                    {% if form.recipe_image.errors %}
-                        {{ form.recipe_image(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.recipe_image.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.recipe_image(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.notes.label(class="form-control-label") }}
-                    {% if form.notes.errors %}
-                        {{ form.notes(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.notes.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.notes(class="form-control form-control-lg") }}
-                    {% endif %}
+                    <label for="exampleFormControlTextarea1">Notes</label>
+                    <textarea class="form-control" id="Notes" name="notes" rows="2"></textarea>
                 </div>
             </fieldset>
             <div class="form-group text-right">
-                {{ form.submit(class="btn btn-outline-success") }}
+                <button type="submit" class="btn-success">Submit</button>
             </div>
         </form>
     </div>

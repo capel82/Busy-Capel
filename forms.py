@@ -17,16 +17,4 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign In')
 
-class RecipesForm(FlaskForm):
-    recipe_name = StringField ('Recipe Name',validators=[DataRequired()])
-    categories= StringField ('Categories',validators=[DataRequired()])
-    preparation_time = IntegerField ('Preparation Time (in minutes)',validators=[DataRequired()])
-    cooking_time = IntegerField ('Cooking Time (in minutes)',validators=[DataRequired()])
-    serving_portion = IntegerField ('Serving Portion',validators=[DataRequired()])
-    ingredients = TextAreaField('Ingredients (one per line)',validators=[DataRequired()])
-    methods = TextAreaField ('Methods (one per line, please list your methods in numbers - ie.1, 2,3)',validators=[DataRequired()])
-    recipe_image = StringField ('recipe_image',validators=[Optional()])
-    notes = TextAreaField ('Notes',validators=[Optional()])
-    email = StringField('email',validators=[DataRequired(), Email()])
-    submit = SubmitField ('Submit')
 
