@@ -60,6 +60,11 @@
             </ol>
         </div>
     </div>
+    <div class="row">
+    <div class="col-md-12 pt-3">
+    <h4>Notes: {{recipe.notes}}</h4>
+    </div>
+    </div>
     <div class="row mt-5">
         <div class= "col-md-12 inline-block  d-flex justify-content-center my-3">
                     <a class ="btn btn-warning p-2 mr-5" href="{{url_for('edit_myrecipe', account_id=recipe._id)}}">EDIT RECIPE</a>
