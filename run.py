@@ -168,30 +168,28 @@ def show_myrecipe(account_id):
 @app.route('/edit_myrecipe/<account_id>', methods=['GET', 'POST'])
 def edit_myrecipe(account_id):
     edit = mongo.db.users_recipes.find_one({'_id': ObjectId(account_id)}) 
-    return render_template('edit_myrecipe.html', recipe=edit, recipe_id=account_id)
+    return render_template('edit_myrecipe.html', recipe=edit)
 
-@app.route('/update_myrecipe/<account_id>', methods=['POST'])
+@app.route('/update_myrecipe/<account_id>', methods=['GET','POST'])
 def update_myrecipe(account_id):
-    
     users_recipes = mongo.db.users_recipes
-    recipe_dict = request.form.to_dict()
-    if request.method == 'POST':
-        recipe = users_recipes.find_one({'_id': ObjectId(account_id)})
-        recipe_dict['ingredients'] = request.form['ingredients'].strip().replace('\r\n', '|')
-        recipe_dict['method'] = request.form['method'].strip().replace('\r\n', '|')
-        recipe_dict['recipe_name'] = request.form.get['recipe_name']
-        recipe_dict['categories'] = request.form.get['categories']
-        recipe_dict['preparation_time'] = request.form.get['preparation_time']
-        recipe_dict['cooking_time'] = request.form.get['cooking_time']
-        recipe_dict['notes'] = request.form.get['notes']
-        recipe_dict['email'] = request.form.get['email']
-
-        users_recipes.update_one({'_id':ObjectId(account_id)}, {"$set": recipe_dict})
-
-        flash('Your recipe updated!','success')
-        return redirect(url_for('account', recipe_id=account_id)) 
-        return render_template ('myrecipes.html', recipe=recipe)
-
+    recipe = mongo.db.users_recipes.find_one({"_id": ObjectId(account_id)})
+    ingredients_line = request.form.getlist("ingredients").split('\r')
+    methods_line= request.form.getlist("methods").split('\r')
+    users_recipes.update({"_id": ObjectId(account_id)},{
+        "recipe_name": request.form.get("recipe_name"),
+        "categories": request.form.get("categories"),
+        "preparation_time": request.form.get("preparation_time"),
+        "cooking_time":request.form.get("cooking_time"),
+        "serving_portion": request.form.get("serving_portion"),
+        "ingredients": ingredients_line,
+        "methods": methods_line,
+        "notes": request.form.get("notes"),
+        "email":session["email"]
+    })
+    flash(f"Your recipe has been updated!")
+    return redirect(url_for("account", recipe_id=account_id))
+ 
 #----CRUD OPERATION: Delete----#
 @app.route('/delete_recipe/<account_id>', methods=['GET', 'POST'])
 def delete_recipe(account_id):
