@@ -68,6 +68,24 @@ h2 {
     color: #4f4f4f;
     font-family: 'Caladea', sans-serif;
 }
+@media only screen and (max-width: 768px) {
+   #recipe_shoutout{
+       font-size:35px;
+  }
+  .overlay {
+    height:60%;
+    width:80%;
+    background-color: rgb(0,0,0, 0.6);
+    align-items:center;
+    vertical-align: central;
+    margin-top: 10px;
+    }
+    #fill_your_day {
+    color: #fff;
+    font-size:23px;
+    font-family: 'Lora', sans-serif;
+}
+} 
 /*--register.html --*/
 #join {
     padding:50px;
