@@ -12,7 +12,7 @@
           {% endwith %}
     </div>
 </div>
- <div id="addrecipes"class="container">
+ <div id="addrecipes" class="container">
     <div class="row justify-content-center">
         <div class="col-sm-12 col-md-8 col-lg-8">
         <form method="POST" action="{{url_for('update_myrecipe', account_id=recipe._id)}}">
@@ -21,52 +21,52 @@
                 <p class="text-muted text-center font-italic h5 mb-3">to make changes to your own recipes</p>
                 <div class="form-group">
                     <label for="recipe_name">Recipe Name</label>
-                    <input type="text" class="form-control"id="recipe_name" name='recipe_name' value="{{recipe.recipe_name}}"required>
+                    <input type="text" class="form-control" id="recipe_name" name='recipe_name' value="{{recipe.recipe_name}}" required>
                     <div class="invalid-feedback">
                         Please provide a recipe name
                     </div>
                 </div>
               
                 <div class="form-group">
-                    <label for="validationCustom03">Categories</label>
-                    <input type="text" class="form-control"id="categories" name="categories"  value="{{recipe.categories}}" required>
+                    <label for="categories">Categories</label>
+                    <input type="text" class="form-control" id="categories" name="categories"  value="{{recipe.categories}}" required>
                     <div class="invalid-feedback">
                         Please provide a category
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="validationCustom03">Preparation Time</label>
-                    <input type="text" class="form-control" id="preparation_time" name="preparation_time"  value="{{recipe.preparation_time}}"required>
+                    <label for="preparation_time">Preparation Time</label>
+                    <input type="text" class="form-control" id="preparation_time" name="preparation_time"  value="{{recipe.preparation_time}}" required>
                     <div class="invalid-feedback">
                         in minutes
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="validationCustom03">Cooking Time</label>
-                    <input type="text" class="form-control" id="cooking_time" name="cooking_time"  value="{{recipe.cooking_time}}"required>
+                    <label for="cooking_time">Cooking Time</label>
+                    <input type="text" class="form-control" id="cooking_time" name="cooking_time"  value="{{recipe.cooking_time}}" required>
                     <div class="invalid-feedback">
                         in minutes
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="validationCustom03">Serving Portion</label>
-                    <input type="text" class="form-control" id="serving_portion" name="serving_portion" value="{{recipe.serving_portion}}"required>
+                    <label for="serving_portion">Serving Portion</label>
+                    <input type="text" class="form-control" id="serving_portion" name="serving_portion" value="{{recipe.serving_portion}}" required>
                     <div class="invalid-feedback">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Ingredients</label> 
+                    <label for="ingredients">Ingredients</label> 
                     <textarea class="form-control" id="ingredients" name="ingredients" rows="4" required>{% for ingredient in recipe.ingredients %}{{ingredient}}{% endfor %}</textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Methods</label>
+                    <label for="methods">Methods</label>
                     <textarea class="form-control" id="methods" name="methods" rows="5" required>{% for method in recipe.methods %}{{method}}{% endfor %}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Notes</label>
+                    <label for="methods">Notes</label>
                     <textarea class="form-control" id="Notes" name="notes" rows="2">{{recipe.notes}}</textarea>
                 </div>
             </fieldset>

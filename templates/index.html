@@ -1,6 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-
-<section class="container-fluid p-0">
+<div class="container-fluid p-0">
     <div class="jumbotron"> 
         <div class="overlay mx-auto p-5">
             <p id="recipe_shoutout" class="display-4">High Protein Recipes</p>
@@ -11,16 +10,17 @@
                 <a class="btn btn-light" role="button" href="{{url_for('allrecipes')}}">Browse Recipes</a>
         </div>
     </div>
-</section>
+</div>
 
-<section class="container">
+
+<div class="container">
     <h2 id="inspired" class="text-center pt-3 pb-1 font-italic"> Be Inspired...</h2>
     <p class="text-center text-muted pb-4">Quick and Easy</p>
     <div class="row">
         {% for recipe in recipes %}
         <div class="col-sm-12 col-md-3">
             <div class="card text-center">
-                    <img class="card-img-top" src="{{recipe.image}}" alt="Card image cap"></img>
+                    <img class="card-img-top" src="{{recipe.image}}" alt="Card image cap">
                 <div class="card-body">
                     <a class ="card-title text-success" href="{{url_for('show_recipe', recipe_id=recipe._id)}}">{{recipe.recipe_name}}</a>
                 </div>
@@ -33,6 +33,6 @@
             <a class="btn btn-outline-dark" role="button" href="{{url_for('allrecipes')}}"> More Recipes here</a>
         </div>
     </div>
-</section>
+</div>
 
 {% endblock %}

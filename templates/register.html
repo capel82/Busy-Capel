@@ -12,10 +12,10 @@
           {% endwith %}
     </div>
 </div>
- <div id="join"class="container justify-content-center">
+ <div id="join" class="container justify-content-center">
     <div class="row">
         <div class="col-sm-6 col-md-8 col-lg-12 d-flex justify-content-center">
-        <form method="POST" action="">
+        <form method="POST" action="{{ url_for('register')}}">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-3">CREATE NEW ACCOUNT</legend>

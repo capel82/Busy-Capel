@@ -12,10 +12,10 @@
           {% endwith %}
     </div>
 </div>
- <div id="signin"class="container justify-content-center">
+ <div id="signin" class="container justify-content-center">
     <div class="row">
         <div class="col-sm-6 col-md-8 col-lg-12 p-4 d-flex justify-content-center">
-        <form method="POST" action="">
+        <form method="POST" action="{{ url_for('login')}}">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-3">SIGN IN to your account</legend>

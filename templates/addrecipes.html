@@ -13,7 +13,7 @@
     </div>
 </div>
 
- <div id="addrecipes"class="container">
+ <div id="addrecipes" class="container">
     <div class="row justify-content-center">
         <div class="col-sm-12 col-md-8 col-lg-8">
         <form method="POST" action="{{ url_for('insert_recipes')}}">
@@ -21,54 +21,54 @@
                 <legend class="border-bottom text-center mb-3">Add New Recipes</legend>
                 <p class="text-muted text-center font-italic h5 mb-3">to save your own recipes</p>
                 <div class="form-group">
-                    <label for="validationCustom03">Recipe Name</label>
-                    <input type="text" class="form-control"id="recipe_name" name="recipe_name" placeholder="Recipe Name" required>
+                    <label for="recipe_name">Recipe Name</label>
+                    <input type="text" class="form-control" id="recipe_name" name="recipe_name" placeholder="Recipe Name" required>
                     <div class="invalid-feedback">
                         Please provide a recipe name
                     </div>
                 </div>
               
                 <div class="form-group">
-                    <label for="validationCustom03">Categories</label>
-                    <input type="text" class="form-control"id="categories" name="categories" placeholder="Starter, Main, Desserts" required>
+                    <label for="categories">Categories</label>
+                    <input type="text" class="form-control" id="categories" name="categories" placeholder="Starter, Main, Desserts" required>
                     <div class="invalid-feedback">
                         Please provide a category
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="validationCustom03">Preparation Time</label>
+                    <label for="preparation_time">Preparation Time</label>
                     <input type="text" class="form-control" id="preparation_time" name="preparation_time" placeholder="in minutes" required>
                     <div class="invalid-feedback">
                         in minutes
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="validationCustom03">Cooking Time</label>
+                    <label for="cooking_time">Cooking Time</label>
                     <input type="text" class="form-control" id="cooking_time" name="cooking_time" placeholder="in minutes" required>
                     <div class="invalid-feedback">
                         in minutes
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="validationCustom03">Serving Portion</label>
+                    <label for="serving_portion">Serving Portion</label>
                     <input type="text" class="form-control" id="serving_portion" name="serving_portion" placeholder="in number" required>
                     <div class="invalid-feedback">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Ingredients</label>
-                    <textarea class="form-control" id="ingredients" name="ingredients" placeholder="one item per line"rows="4" required></textarea>
+                    <label for="ingredients">Ingredients</label>
+                    <textarea class="form-control" id="ingredients" name="ingredients" placeholder="one item per line" rows="4" required></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Methods</label>
+                    <label for="methods">Methods</label>
                     <textarea class="form-control" id="methods" name="methods" placeholder="one step per line without numbering" rows="5" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Notes</label>
-                    <textarea class="form-control" id="Notes" name="notes" rows="2"></textarea>
+                    <label for="notes">Notes</label>
+                    <textarea class="form-control" id="notes" name="notes" rows="2"></textarea>
                 </div>
             </fieldset>
             <div class="form-group text-right">

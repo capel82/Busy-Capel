@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-<section class="container my-4">
+<div class="container my-4">
     <div class="row d-flex justify-content-center">
 {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -11,9 +11,9 @@
             {% endif %}
           {% endwith %}
     </div>
-</section>
+</div>
 
-<section class="container">
+<div class="container">
     <h2 id="inspired" class="text-center pt-3 pb-1 font-italic"> All Recipes.</h2>
     <p class="text-center text-muted pb-3">High Protein, simple and easy. Give them a try.</p>
     <div class="row">
@@ -34,7 +34,7 @@
         {% for recipe in recipes %}
         <div class="col-sm-12 col-md-3 my-2">
             <div class="card text-center">
-                    <img id ="allrecipes_images" class="card-img-top" src="{{recipe.image}}" alt="Card image cap"></img>
+                    <img class ="card-img-top allrecipes_images" src="{{recipe.image}}" alt="Card image cap">
                 <div class="card-body">
                     <a class ="card-title text-success" href="{{url_for('show_recipe', recipe_id=recipe._id)}}">{{recipe.recipe_name}}</a>
                 </div>
@@ -42,9 +42,9 @@
         </div>
          {% endfor %}  
     </div> 
- </section>
+ </div>
 
- <section id = "recipe_pagination" class="container">
+ <div id = "recipe_pagination" class="container">
     <div class="row d-flex justify-content-center my-2">
         <nav aria-label="Page navigation example">
             <ul class="pagination p-3">
@@ -78,5 +78,5 @@
             </ul>
         </nav>
     </div>
-</section>
+</div>
 {% endblock %}
