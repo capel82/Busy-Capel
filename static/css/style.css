@@ -45,18 +45,18 @@ html {
     background-color: rgb(0,0,0, 0.6);
     align-items:center;
     vertical-align: central;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 #recipe_shoutout{
     color:#fff;
     font-weight: 500;
-    font-family: 'Lora', sans-serif;
+    font-family: 'Caladea', serif;
     
 }
 #fill_your_day {
     color: #fff;
     font-size:30px;
-    font-family: 'Lora', sans-serif;
+    font-family: 'Caladea', serif;
 }
   
 .jumbotron p {
@@ -77,7 +77,7 @@ h2 {
     background-color: rgb(0,0,0, 0.6);
     align-items:center;
     vertical-align: central;
-    margin-top: 10px;
+    margin-top: 20px;
     }
     #fill_your_day {
     color: #fff;
@@ -93,6 +93,11 @@ h2 {
     height: 100vh;
     background-color: #f7ffe6;
 }
+@media only screen and (max-width: 768px) {
+   #join{
+       width:85%;
+  }
+}
 legend{
     color:#408000;
     font-weight: 100;
@@ -103,15 +108,22 @@ legend{
     justify-content: center;
 }
 
+
 /*--login.html--*/
 #signin {
     padding:50px;
     margin-top: 50px;
     margin-bottom:50px;
     height: 100vh;
+    width:90%;
     background-color: #f7ffe6;
     color: #000;
     border: 2px solid #408000;
+}
+@media only screen and (max-width: 768px) {
+   #signin{
+       width:70%;
+  }
 }
 /*--allrecipes.html--*/
 #allrecipes_page {
@@ -134,12 +146,12 @@ legend{
 /*--recipe.html--*/
 .individual_recipe {
     background-color: #f2f2f2;
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Caladea', serif;
 }
 /*--myrecipes.html--*/
 .single_recipe {
     background-color: #fff;
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Caladea', serif;
 }
 
 .recipe_title {
@@ -162,6 +174,7 @@ list-style-type: none;
 .fa {
 color: #408000!important;
 }
+
 .ingredients_methods {
 background-color:#408000;
 color: #fff;

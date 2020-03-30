@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container mt-5">
-<div class="row d-flex justify-content-center">
+<div class="row d-flex justify-content-center mt-5">
 {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
               {% for category, message in messages %}
@@ -12,7 +12,7 @@
           {% endwith %}
     </div>
 </div>
-<section class="container">
+<section class="container mt-3">
    <h2 id="account" class="text-center pt-3 pb-1 font-italic"> My Recipes.</h2>
        <p class="text-center text-muted pb-4">Retrieve your saved recipes by clicking on the recipe title.</p>
     <div class="row">
