@@ -47,6 +47,7 @@ def register():
             return redirect(url_for('register'))
 
         else:
+            session['logged_in'] = False
             flash('Sorry, email has already taken. Please try another.')
         return redirect(url_for('register'))
 
@@ -69,6 +70,7 @@ def login():
                 flash(f'Login successfull for {form.email.data}!', 'success')
                 return redirect(url_for('allrecipes'))
             else:
+                session['logged_in'] = False
                 flash('Login Unsuccessful. Please check email address and password', 'danger')
             return redirect(url_for('login'))
     return render_template('login.html', title='login', form=form)
