@@ -26,7 +26,7 @@ mongo = PyMongo(app)
 def homepage():
     return render_template("index.html", title='Homepage', recipes=mongo.db.recipes.find().limit(4))
 
-
+#CREATE:route to REGISTER PAGE using Flask-WTForms
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -52,7 +52,7 @@ def register():
 
     return render_template('register.html', title='Register', form=form)
 
- 
+#CREATE: Route to LOGIN PAGE using Flask_WTForms
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -73,13 +73,14 @@ def login():
             return redirect(url_for('login'))
     return render_template('login.html', title='login', form=form)
 
+#CREATE: Route for ADD RECIPES - rendering the form in Add Recipe page
 @app.route('/addrecipes', methods=['GET', 'POST'])
 def addrecipes():
     users_recipes = mongo.db.users_recipes 
 
     return render_template("addrecipes.html",recipes=users_recipes.find())
 
-#add new recipe to database through Add Recipe Form
+#CREATE: Route to insert new recipe to mongodb database when submit button is clicked.
 @app.route('/insert_recipes', methods=['POST'])
 def insert_recipes():
     users_recipes = mongo.db.users_recipes
@@ -101,7 +102,8 @@ def insert_recipes():
         return redirect(url_for('account'))
     return render_template("addrecipes.html", recipes = new_recipe)
 
-
+#READ:route to render all recipes in the Editor's database
+#use pagination for better UX in displaying recipes
 @app.route("/allrecipes")
 def allrecipes():
     #pagination
@@ -125,34 +127,35 @@ def allrecipes():
         offset=offset,
         maximum=maximum,
         )
-
+#READ: route to show each Editor's individual recipe by recipe_id
 @app.route('/show_recipe/<recipe_id>', methods=['GET', 'POST'])
 def show_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     return render_template(
         'recipe.html', recipe=the_recipe)
 
-
+#READ: route to read all recipes under starter category
 @app.route('/starter')
 def starter():
          starter = mongo.db.recipes.find ({'categories': 'Starter'})
          return render_template('starter.html',
                            categories=starter)
 
- 
+#READ: route to read all recipes under main category
 @app.route('/mains')
 def mains():
          mains = mongo.db.recipes.find ({'categories': 'Main'})
          return render_template('mains.html',
                            categories=mains)
 
-
+#READ: route to read all recipes under dessert category
 @app.route('/desserts')
 def desserts():
          desserts = mongo.db.recipes.find ({'categories': 'Dessert'})
          return render_template('desserts.html',
                            categories=desserts)
 
+#READ: Route to display user's recipes saved in the account, querying using session - email
 @app.route('/account', methods=['GET', 'POST'])
 def account():
     user_account = session['email']
@@ -160,37 +163,38 @@ def account():
     my_recipes = mongo.db.users_recipes.find(query)
     return render_template('account.html', recipes=my_recipes)
 
+#READ: Route to show user's individual saved recipe
 @app.route('/show_myrecipe/<account_id>', methods=['GET', 'POST'])
 def show_myrecipe(account_id):
     my_recipe = mongo.db.users_recipes.find_one({'_id': ObjectId(account_id)})
     return render_template('myrecipes.html', recipe=my_recipe)
 
+#UPDATE: Route to render edit form with recipe information from database
 @app.route('/edit_myrecipe/<account_id>', methods=['GET', 'POST'])
 def edit_myrecipe(account_id):
     edit = mongo.db.users_recipes.find_one({'_id': ObjectId(account_id)}) 
     return render_template('edit_myrecipe.html', recipe=edit)
 
+#UPDATE: Route to update recipe information in the database
 @app.route('/update_myrecipe/<account_id>', methods=['GET','POST'])
 def update_myrecipe(account_id):
     users_recipes = mongo.db.users_recipes
     recipe = mongo.db.users_recipes.find_one({"_id": ObjectId(account_id)})
-    ingredients_line = request.form.getlist("ingredients").split('\r')
-    methods_line= request.form.getlist("methods").split('\r')
     users_recipes.update({"_id": ObjectId(account_id)},{
         "recipe_name": request.form.get("recipe_name"),
         "categories": request.form.get("categories"),
         "preparation_time": request.form.get("preparation_time"),
-        "cooking_time":request.form.get("cooking_time"),
+        "cooking_time": request.form.get("cooking_time"),
         "serving_portion": request.form.get("serving_portion"),
-        "ingredients": ingredients_line,
-        "methods": methods_line,
+        "ingredients": request.form.get("ingredients").split('\r'),
+        "methods": request.form.get("methods").split('\r'),
         "notes": request.form.get("notes"),
         "email":session["email"]
     })
     flash(f"Your recipe has been updated!")
     return redirect(url_for("account", recipe_id=account_id))
  
-#----CRUD OPERATION: Delete----#
+#DELETE - Route to delete user's recipe when Delete button is clicked.
 @app.route('/delete_recipe/<account_id>', methods=['GET', 'POST'])
 def delete_recipe(account_id):
     mongo.db.users_recipes.remove({'_id': ObjectId(account_id)})
