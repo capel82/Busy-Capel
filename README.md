@@ -11,13 +11,13 @@ The objectives of creating this cookbook are:
 
 ### B. Wireframes
 
-[wireframes1](./mobile.pdf)
+[wireframes1](wireframes/mobile.pdf)
 
-[wireframes2](./wireframe1.png)
+[wireframes2](wireframes/wireframe1.png)
 
-[wireframes3](./wireframe2.png)
+[wireframes3](wireframes/wireframe2.png)
 
-[wireframes4](./wireframe3.png)
+[wireframes4](wireframes/wireframe3.png)
 
 ### C. User Stories
 **Homepage**
