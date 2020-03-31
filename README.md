@@ -11,7 +11,7 @@ The objectives of creating this cookbook are:
 
 ### B. Wireframes
 
-[wireframes1](Revised Mobile High Protein Recipes.pdf)
+[wireframes1](mobile.pdf)
 [wireframes2](wireframe1.png)
 [wireframes3](wireframe2.png)
 [wireframes4](wireframe3.png)
@@ -158,14 +158,47 @@ In addtion to Chrome Development Tools, manual testings were done with iphone SE
 **Delete button** - My recipe that was chosen to be deleted was successfully deleted with a message flashed out to inform me.
 
 ### G. Deployment to Heroku
-I used Gitpod as my IDE to write my codes.  I cloned Code Institute Templates from Github to a new repository.
-Then through my IDE terminal,  I created run.py and Procfile.
-I then git add, git commit and git push them to my repository.
-Next, I installed Flask, flask-pymongo and dnspython with terminal commands (pip3 install Flask, pip3 install flask-pymongo, pip3 install dnspthon)
-Open up Heroku website and logged into my account.  I created a new app by clicking on ‘New’ button on the top right corner.  I chose a app name and select the Europe Region.
-In the Deployment method under Deploy section, I have chosen Github and I also ensure my App connected to Github appears on it.
-I also selected automatic deploys from my Github Master branch.
-Next, I install heroku in IDE with terminal command npm install -g heroku and login with the command o
+1. I used Gitpod as my IDE to write my codes.  I cloned **Code Institute Gitpod-Full-Template** from Github by clicking on the green button *Use this template*  that brought me to create a new repository.  This helped to copy all the information in the template to my own Github account. Then I clicked on Gitpod green button on the top right corner to start my IDE.
+
+2. In Gitpod, I created `run.py`, `Procfile` and  `requirement.txt` files.
+
+3. Using Gitpod terminal, I then `git add .`, `git commit -m` and `git push` them to my repository.
+
+4. Next, I installed Flask, flask-pymongo and dnspython with terminal commands (`pip3 install Flask`, `pip3 install flask-pymongo`, `pip3 install dnspthon`).
+
+5. Then, I registered a new account in [Heroku](www.heroku.com).
+
+6. After that, I installed Heroku in IDE with terminal command ` npm install -g heroku` and login with the command of `heroku login-i`.
+
+7. I opened up [Heroku](www.heroku.com) and logged into my account which i created beforehand.  On the top right corner, I clicked on ‘New’ button to create a new app. 
+
+8. I chose an app name and select the Europe Region.
+
+9. In the *Deployment method* in Heroku, under *Deploy section*, I have chosen [Github](www.github.com) and I also ensure my App connected to Github appeared on it.
+
+10. I have also selected automatic deploys from my Github Master branch.
+
+11. Under *Overview* in Heroku, I set the *dynos* to `web python run.py`.
+
+12. Under *settings* in Heroku, I clicked on *reveal config var* to enter information for:
+	IP = 0.0.0.0
+	PORT = 5000
+	MONGO_URL = value
+	SECRET KEY = value
+
+13. Now, any codes pushed from my IDE to Github would automatically deploy to Heroku and I can open the app with the button *Open App* on the top right corner of the app in my heroku account
+
+###H. Local Deployment
+
+1. An IDE will be needed to run this project locally.
+
+2. In [Github] https://github.com/capel82/Busy-Capel, choose the Busy Capel repository and on the right top corner, click on *clone or download* green button to clone the codes. 
+
+3. Copied the URL  *https://github.com/capel82/Busy-Capel.git*and at the IDE terminal type in `git clone https://github.com/capel82/Busy-Capel.git` to clone into chosen working directory.
+
+4. All requirements.txt, Procfile, run.py files need to be installed and ensuring IP (0.0.0.0) and PORT (5000), Mongo URL and secret key are updated.
+
+5. The app can be initiated now with command `python3 run.py`.
 
 ### H.Credits
 a. **Codes :**- taken and adjusted
@@ -173,9 +206,11 @@ Corey Schafer Flask Python Series at [youtube](www.youtube.com) - especially in 
 Pretty Printed at Flask Pymongo at [youtube](www.youtube.com)
 @2BN-Chris_alumnus in Slack Community posted about codes for route update recipe using splitlines()
 
-c.. **Photos used:** - All images are taken from [BBC Good Food](www.bbcgoodfood.com), [Sainsbury](https://recipes.sainsburys.co.uk/recipes/healthy-eating/chargrilled-chicken-shawarma-with-smashed-chickpeas and [Jenniferbanz](https://jenniferbanz.com/).
+b. **Photos and recipes contents used:** - All  are taken from [BBC Good Food](www.bbcgoodfood.com), [Sainsbury](https://recipes.sainsburys.co.uk/recipes/healthy-eating/chargrilled-chicken-shawarma-with-smashed-chickpeas and [Jenniferbanz](https://jenniferbanz.com/).
 
 ### I. Acknowledgement
 A special thanks to my mentor **Maranatha Ilesanmi** who has very kindly encouraged, guided and taught me with so much patience towards me in finishing this third milestone project.
+
 Working from home in this COVID-19 crisis was not easy but I am thankful for my husband and kids who are very considerate whenenever I tried to work through this project.
+
 Not forget the tutors in Code Institute who have been faithfully helping to solve any problems arising in completing this project.
