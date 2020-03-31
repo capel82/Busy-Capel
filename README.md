@@ -11,13 +11,13 @@ The objectives of creating this cookbook are:
 
 ### B. Wireframes
 
-[wireframes1](mobile.pdf)
+[wireframes1](wireframes/mobile.pdf)
 
-[wireframes2](wireframe1.png)
+[wireframes2](wireframes/wireframe1.png)
 
-[wireframes3](wireframe2.png)
+[wireframes3](wireframes/wireframe2.png)
 
-[wireframes4](wireframe3.png)
+[wireframes4](wireframes/wireframe3.png)
 
 ### C. User Stories
 **Homepage**
@@ -193,7 +193,7 @@ In addtion to Chrome Development Tools, manual testings were done with *iphone S
 
 13. Now, any codes pushed from my IDE to Github would automatically deploy to Heroku and I can open the app with the button *Open App* on the top right corner of the app in my heroku account
 
-### H. Local Deployment
+### G. Local Deployment
 
 1. An IDE will be needed to run this project locally.
 
@@ -214,7 +214,12 @@ Pretty Printed at Flask Pymongo at [youtube](www.youtube.com)
 
 @2BN-Chris_alumnus in Slack Community posted about codes for route update recipe.
 
-b. **Photos and recipes contents used:** - All  are taken from [BBC Good Food](www.bbcgoodfood.com), [Sainsbury](https://recipes.sainsburys.co.uk/recipes/healthy-eating/chargrilled-chicken-shawarma-with-smashed-chickpeas and [Jenniferbanz](https://jenniferbanz.com/).
+b. **Photos and recipes contents used:** - All  are taken from 
+[BBC Good Food](www.bbcgoodfood.com), 
+
+[Sainsbury](https://recipes.sainsburys.co.uk/recipes/healthy-eating/chargrilled-chicken-shawarma-with-smashed-chickpeas) and 
+
+[Jenniferbanz](https://jenniferbanz.com/).
 
 ### I. Acknowledgement
 
