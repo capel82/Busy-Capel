@@ -27,6 +27,7 @@ def homepage():
     return render_template("index.html", title='Homepage', recipes=mongo.db.recipes.find().limit(4))
 
 #CREATE:route to REGISTER PAGE using Flask-WTForms
+#Register codes taken from Corey Schafer Flask-Python series with some adjustments-->
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -54,6 +55,7 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 #CREATE: Route to LOGIN PAGE using Flask_WTForms
+#Login codes taken from Corey Schafer Flask-Python series with some adjustments-->
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -106,6 +108,7 @@ def insert_recipes():
 
 #READ:route to render all recipes in the Editor's database
 #use pagination for better UX in displaying recipes
+#codes learned from Pretty Printed Youtube - Query Pagination in Flask and MongoDB
 @app.route("/allrecipes")
 def allrecipes():
     #pagination
