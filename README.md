@@ -12,8 +12,11 @@ The objectives of creating this cookbook are:
 ### B. Wireframes
 
 [wireframes1](mobile.pdf)
+
 [wireframes2](wireframe1.png)
+
 [wireframes3](wireframe2.png)
+
 [wireframes4](wireframe3.png)
 
 ### C. User Stories
@@ -21,7 +24,7 @@ The objectives of creating this cookbook are:
 The Jumbotron image shows a picture of food indicated to me that I have landed on a web application about food. The caption of *’High Protein Recipes’* gives me the impression that it is all about recipes made with high protein contents.  Below the title,  I am made aware the benefits of high protein content diets.
 The button ‘Browse Recipes’ with hover effect prompts me to click on it which leeds me to all the recipes posted by Editor.
 
-Below the jumbotron, there are few images of recipes displayed, which also linked to individual recipes through its recipe name.  The title of *’Be inspired’* encouraged me to venture more into recipes posted. The cookbook can also be easily navigated with the button * ‘More Recipes Here’ * without me needing to scroll to the top.
+Below the jumbotron, there are few images of recipes displayed, which also linked to individual recipes through its recipe name.  The title of *’Be inspired’* encouraged me to venture more into recipes posted. The cookbook can also be easily navigated with the button *More Recipes Here* without me needing to scroll to the top.
 
 The bottom footer shows that I could follow the Editor on her Facebook, Twitter, Instagram or Pinterest.
 
@@ -37,7 +40,7 @@ I can register my own account by clicking on Register on the navbar which brings
 I also noticed that the navbar changed that I have the options of Add recipes, My recipes and Logout option in addition to view the Editor’s recipes.
 
 **Login page**
-Login page is also simple as I only need to enter the email address and password. Email address is actually easier to remember than username. I will know that I have logged into my account from message of ‘Login successful for ‘email’”. The navbar changes with the options of Add recipes, My recipes and Logout option in addition to view the Editor’s recipes.
+Login page is also simple as I only need to enter the email address and password. Email address is actually easier to remember than username. I will know that I have logged into my account from message of *Login successful for ‘email'*. The navbar changes with the options of Add recipes, My recipes and Logout option in addition to view the Editor’s recipes.
 
 **Account page**
 This page only displays the account holder’s recipes.  
@@ -62,7 +65,7 @@ Below the jumbotron is a section which uses bootstrap 4 grid system and card dec
 
 -**All Recipes Page** - This page uses card decks group components from Bootstrap 4 to display all Editor’s recipes in the database.  It also uses Bootstrap 4 dropdown menu for filtering meal categories.  Each card shows the recipe image and title fetched from the database. The recipe title is a link to individual recipe page. Bootstrap 4 Pagination is used here.
 
--**Starters/Mains/Desserts Recipes Page/** - Each of these pages showed all the menu displayed by categories.  The features used similar to All Recipe Page where Bootstrap 4 card deck group and dropdown menu have been used.
+-**Starters/Mains/Desserts Recipes Page** - Each of these pages showed all the menu displayed by categories.  The features used similar to All Recipe Page where Bootstrap 4 card deck group and dropdown menu have been used.
 
 
 -**Login page and Registration page** - This pages uses form features of Bootstraps and Flask WTForms for validations and responsiveness. Data Required function is used to ensure user fills in all fields.  If user is created a new account, a flash message will appear to inform user that his or her account has been created.  This is the same when user successfully logged into his or her accounts.  A flash message will also appears if user’s email address had been taken before.
@@ -87,14 +90,11 @@ Flash messages will appear if the recipe has been deleted.
 
 Why it is being used:  Recommended by my mentor and it gives a good idea of wireframes even to the details of colours and images.
 
-**Bootstrap v 4.4**
-
-(https://getbootstrap.com/)
+[Bootstrap v 4.4](https://getbootstrap.com/)
 
 Why it is being used: As mobile digitals are increasing and so widely used, Bootstraps has been chosen for mobile first -approach for the design of the webpages so that it can be easily made responsive with many different features offered.
 
-**Bootstrap own Javascript, jQuery and Popper.js**
-(https://getbootstrap.com/docs/4.3/getting-started/introduction/)
+[Bootstrap own Javascript, jQuery and Popper.js](https://getbootstrap.com/docs/4.3/getting-started/introduction/)
 
  Why it is being used: As many of bootstrap v4.3 required use of Javascript, jQuery and Popper.js, these technologies were also incorporated into this project.    
      
@@ -139,8 +139,9 @@ why it is being used: templating languages for Python for fetching backend data 
 [Heroku](https://www.heroku.com/)
 why it is being used: cloud based application allowing me to build and run my application.
 
-##### **Manual testings:**
-In addtion to Chrome Development Tools, manual testings were done with iphone SE and MacBook Air.
+#### **Manual testings:**
+In addtion to Chrome Development Tools, manual testings were done with *iphone SE* and *MacBook Air*.
+
 **Navbar** - clicking on all pages to ensure they are all properly linked to the right page.  Toggle ability was tested in iphone SE.
 
 **Buttons** - all manually tested with workable links. When I clicked on the buttons, background color and font-color changed indicating the hover effect worked.
@@ -181,14 +182,18 @@ In addtion to Chrome Development Tools, manual testings were done with iphone SE
 11. Under *Overview* in Heroku, I set the *dynos* to `web python run.py`.
 
 12. Under *settings* in Heroku, I clicked on *reveal config var* to enter information for:
+
 	IP = 0.0.0.0
+
 	PORT = 5000
+
 	MONGO_URL = value
+
 	SECRET KEY = value
 
 13. Now, any codes pushed from my IDE to Github would automatically deploy to Heroku and I can open the app with the button *Open App* on the top right corner of the app in my heroku account
 
-###H. Local Deployment
+### H. Local Deployment
 
 1. An IDE will be needed to run this project locally.
 
@@ -202,13 +207,17 @@ In addtion to Chrome Development Tools, manual testings were done with iphone SE
 
 ### H.Credits
 a. **Codes :**- taken and adjusted
+
 Corey Schafer Flask Python Series at [youtube](www.youtube.com) - especially in using Flask-WTForms and flash messages.
+
 Pretty Printed at Flask Pymongo at [youtube](www.youtube.com)
-@2BN-Chris_alumnus in Slack Community posted about codes for route update recipe using splitlines()
+
+@2BN-Chris_alumnus in Slack Community posted about codes for route update recipe.
 
 b. **Photos and recipes contents used:** - All  are taken from [BBC Good Food](www.bbcgoodfood.com), [Sainsbury](https://recipes.sainsburys.co.uk/recipes/healthy-eating/chargrilled-chicken-shawarma-with-smashed-chickpeas and [Jenniferbanz](https://jenniferbanz.com/).
 
 ### I. Acknowledgement
+
 A special thanks to my mentor **Maranatha Ilesanmi** who has very kindly encouraged, guided and taught me with so much patience towards me in finishing this third milestone project.
 
 Working from home in this COVID-19 crisis was not easy but I am thankful for my husband and kids who are very considerate whenenever I tried to work through this project.
